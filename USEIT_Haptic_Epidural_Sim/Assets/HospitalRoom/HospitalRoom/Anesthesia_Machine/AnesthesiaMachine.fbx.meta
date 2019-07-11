@@ -1,0 +1,579 @@
+fileFormatVersion: 2
+guid: 91f252e1981c9f54ea057246e85d2f94
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: APL_Knob
+    100004: BottomBay
+    100006: BottomPanel
+    100008: Breather_Toggle
+    100010: Breather_Toggle2
+    100012: Breather_ToggleBase
+    100014: Cap
+    100016: Cap 1
+    100018: Cap 2
+    100020: CapBase
+    100022: CapBase 1
+    100024: CapBase 2
+    100026: Container
+    100028: Container 1
+    100030: Container 2
+    100032: DiaBase
+    100034: DiaBase 1
+    100036: Dial
+    100038: DialHandle
+    100040: DialHandle 1
+    100042: DrawerHandle1
+    100044: DrawerHandle4
+    100046: DrawerHandle5
+    100048: GasConnection
+    100050: GasContainer_SEV
+    100052: GasContainer_SEV1
+    100054: GasContainer_SEV2
+    100056: Handle
+    100058: Handle 1
+    100060: Handle 2
+    100062: Handle 3
+    100064: HandleKnob
+    100066: HandleKnob 1
+    100068: HandleKnob 2
+    100070: Knob
+    100072: Knob 1
+    100074: Knob 2
+    100076: Knob1
+    100078: MainPowerDial
+    100080: MainPowerSwitch
+    100082: Monitor
+    100084: Monitor1
+    100086: Monitor1 1
+    100088: Monitor2
+    100090: MonitorSupport
+    100092: MonitorSupport_Bar
+    100094: MonitorSupport_Bracket1
+    100096: MonitorSupport_Bracket2
+    100098: MonitorSupport_Bracket3
+    100100: MonitorSupport_Bracket4
+    100102: OPlus_Button
+    100104: pCube33
+    100106: pCube34
+    100108: pCube36
+    100110: pCube37
+    100112: pCube38
+    100114: pCube42
+    100116: pCube43
+    100118: pCube44
+    100120: pCube45
+    100122: pCube46
+    100124: pCylinder2
+    100126: pCylinder3
+    100128: pCylinder4
+    100130: pCylinder5
+    100132: pCylinder6
+    100134: pCylinder7
+    100136: pCylinder8
+    100138: PowerSwitch
+    100140: PowerSwitch_Base
+    100142: pSphere1
+    100144: SidePanel
+    100146: SideTableBracket
+    100148: SideTableSupport1
+    100150: SideTableSupport2
+    100152: SuctionReg_Guage
+    100154: Tower
+    100156: Tower1
+    100158: transform11
+    100160: transform12
+    100162: transform13
+    100164: transform14
+    100166: transform15
+    100168: transform16
+    100170: transform17
+    100172: Wheel1
+    100174: Wheel2
+    100176: Wheel3
+    100178: Wheel4
+    100180: Wheel_FrontLeft1
+    100182: Wheel_FrontLeft1 1
+    100184: Wheel_FrontLeft1 2
+    100186: Wheel_FrontLeft1 3
+    100188: WheelBerring_FrontLeft1
+    100190: WheelBerring_FrontLeft1 1
+    100192: WheelBerring_FrontLeft1 2
+    100194: WheelBerring_FrontLeft1 3
+    100196: WheelBrake_FrontLeft1
+    100198: WheelBrake_FrontLeft1 1
+    100200: WheelBrake_FrontLeft1 2
+    100202: WheelBrake_FrontLeft1 3
+    400000: //RootNode
+    400002: APL_Knob
+    400004: BottomBay
+    400006: BottomPanel
+    400008: Breather_Toggle
+    400010: Breather_Toggle2
+    400012: Breather_ToggleBase
+    400014: Cap
+    400016: Cap 1
+    400018: Cap 2
+    400020: CapBase
+    400022: CapBase 1
+    400024: CapBase 2
+    400026: Container
+    400028: Container 1
+    400030: Container 2
+    400032: DiaBase
+    400034: DiaBase 1
+    400036: Dial
+    400038: DialHandle
+    400040: DialHandle 1
+    400042: DrawerHandle1
+    400044: DrawerHandle4
+    400046: DrawerHandle5
+    400048: GasConnection
+    400050: GasContainer_SEV
+    400052: GasContainer_SEV1
+    400054: GasContainer_SEV2
+    400056: Handle
+    400058: Handle 1
+    400060: Handle 2
+    400062: Handle 3
+    400064: HandleKnob
+    400066: HandleKnob 1
+    400068: HandleKnob 2
+    400070: Knob
+    400072: Knob 1
+    400074: Knob 2
+    400076: Knob1
+    400078: MainPowerDial
+    400080: MainPowerSwitch
+    400082: Monitor
+    400084: Monitor1
+    400086: Monitor1 1
+    400088: Monitor2
+    400090: MonitorSupport
+    400092: MonitorSupport_Bar
+    400094: MonitorSupport_Bracket1
+    400096: MonitorSupport_Bracket2
+    400098: MonitorSupport_Bracket3
+    400100: MonitorSupport_Bracket4
+    400102: OPlus_Button
+    400104: pCube33
+    400106: pCube34
+    400108: pCube36
+    400110: pCube37
+    400112: pCube38
+    400114: pCube42
+    400116: pCube43
+    400118: pCube44
+    400120: pCube45
+    400122: pCube46
+    400124: pCylinder2
+    400126: pCylinder3
+    400128: pCylinder4
+    400130: pCylinder5
+    400132: pCylinder6
+    400134: pCylinder7
+    400136: pCylinder8
+    400138: PowerSwitch
+    400140: PowerSwitch_Base
+    400142: pSphere1
+    400144: SidePanel
+    400146: SideTableBracket
+    400148: SideTableSupport1
+    400150: SideTableSupport2
+    400152: SuctionReg_Guage
+    400154: Tower
+    400156: Tower1
+    400158: transform11
+    400160: transform12
+    400162: transform13
+    400164: transform14
+    400166: transform15
+    400168: transform16
+    400170: transform17
+    400172: Wheel1
+    400174: Wheel2
+    400176: Wheel3
+    400178: Wheel4
+    400180: Wheel_FrontLeft1
+    400182: Wheel_FrontLeft1 1
+    400184: Wheel_FrontLeft1 2
+    400186: Wheel_FrontLeft1 3
+    400188: WheelBerring_FrontLeft1
+    400190: WheelBerring_FrontLeft1 1
+    400192: WheelBerring_FrontLeft1 2
+    400194: WheelBerring_FrontLeft1 3
+    400196: WheelBrake_FrontLeft1
+    400198: WheelBrake_FrontLeft1 1
+    400200: WheelBrake_FrontLeft1 2
+    400202: WheelBrake_FrontLeft1 3
+    2300000: APL_Knob
+    2300002: BottomBay
+    2300004: BottomPanel
+    2300006: Breather_Toggle
+    2300008: Breather_Toggle2
+    2300010: Breather_ToggleBase
+    2300012: Cap
+    2300014: Cap 1
+    2300016: Cap 2
+    2300018: CapBase
+    2300020: CapBase 1
+    2300022: CapBase 2
+    2300024: Container
+    2300026: Container 1
+    2300028: Container 2
+    2300030: DiaBase
+    2300032: DiaBase 1
+    2300034: DialHandle
+    2300036: DialHandle 1
+    2300038: DrawerHandle1
+    2300040: DrawerHandle4
+    2300042: DrawerHandle5
+    2300044: GasConnection
+    2300046: Handle
+    2300048: Handle 1
+    2300050: Handle 2
+    2300052: Handle 3
+    2300054: HandleKnob
+    2300056: HandleKnob 1
+    2300058: HandleKnob 2
+    2300060: Knob
+    2300062: Knob 1
+    2300064: Knob 2
+    2300066: Knob1
+    2300068: MainPowerSwitch
+    2300070: Monitor
+    2300072: Monitor1 1
+    2300074: MonitorSupport_Bar
+    2300076: MonitorSupport_Bracket1
+    2300078: MonitorSupport_Bracket2
+    2300080: MonitorSupport_Bracket3
+    2300082: MonitorSupport_Bracket4
+    2300084: OPlus_Button
+    2300086: pCube33
+    2300088: pCube34
+    2300090: pCube36
+    2300092: pCube37
+    2300094: pCube43
+    2300096: pCube44
+    2300098: pCylinder2
+    2300100: pCylinder3
+    2300102: pCylinder4
+    2300104: pCylinder5
+    2300106: pCylinder6
+    2300108: PowerSwitch
+    2300110: PowerSwitch_Base
+    2300112: pSphere1
+    2300114: SidePanel
+    2300116: SideTableBracket
+    2300118: SideTableSupport1
+    2300120: SideTableSupport2
+    2300122: SuctionReg_Guage
+    2300124: Tower1
+    2300126: Wheel_FrontLeft1
+    2300128: Wheel_FrontLeft1 1
+    2300130: Wheel_FrontLeft1 2
+    2300132: Wheel_FrontLeft1 3
+    2300134: WheelBerring_FrontLeft1
+    2300136: WheelBerring_FrontLeft1 1
+    2300138: WheelBerring_FrontLeft1 2
+    2300140: WheelBerring_FrontLeft1 3
+    2300142: WheelBrake_FrontLeft1
+    2300144: WheelBrake_FrontLeft1 1
+    2300146: WheelBrake_FrontLeft1 2
+    2300148: WheelBrake_FrontLeft1 3
+    3300000: APL_Knob
+    3300002: BottomBay
+    3300004: BottomPanel
+    3300006: Breather_Toggle
+    3300008: Breather_Toggle2
+    3300010: Breather_ToggleBase
+    3300012: Cap
+    3300014: Cap 1
+    3300016: Cap 2
+    3300018: CapBase
+    3300020: CapBase 1
+    3300022: CapBase 2
+    3300024: Container
+    3300026: Container 1
+    3300028: Container 2
+    3300030: DiaBase
+    3300032: DiaBase 1
+    3300034: DialHandle
+    3300036: DialHandle 1
+    3300038: DrawerHandle1
+    3300040: DrawerHandle4
+    3300042: DrawerHandle5
+    3300044: GasConnection
+    3300046: Handle
+    3300048: Handle 1
+    3300050: Handle 2
+    3300052: Handle 3
+    3300054: HandleKnob
+    3300056: HandleKnob 1
+    3300058: HandleKnob 2
+    3300060: Knob
+    3300062: Knob 1
+    3300064: Knob 2
+    3300066: Knob1
+    3300068: MainPowerSwitch
+    3300070: Monitor
+    3300072: Monitor1 1
+    3300074: MonitorSupport_Bar
+    3300076: MonitorSupport_Bracket1
+    3300078: MonitorSupport_Bracket2
+    3300080: MonitorSupport_Bracket3
+    3300082: MonitorSupport_Bracket4
+    3300084: OPlus_Button
+    3300086: pCube33
+    3300088: pCube34
+    3300090: pCube36
+    3300092: pCube37
+    3300094: pCube43
+    3300096: pCube44
+    3300098: pCylinder2
+    3300100: pCylinder3
+    3300102: pCylinder4
+    3300104: pCylinder5
+    3300106: pCylinder6
+    3300108: PowerSwitch
+    3300110: PowerSwitch_Base
+    3300112: pSphere1
+    3300114: SidePanel
+    3300116: SideTableBracket
+    3300118: SideTableSupport1
+    3300120: SideTableSupport2
+    3300122: SuctionReg_Guage
+    3300124: Tower1
+    3300126: Wheel_FrontLeft1
+    3300128: Wheel_FrontLeft1 1
+    3300130: Wheel_FrontLeft1 2
+    3300132: Wheel_FrontLeft1 3
+    3300134: WheelBerring_FrontLeft1
+    3300136: WheelBerring_FrontLeft1 1
+    3300138: WheelBerring_FrontLeft1 2
+    3300140: WheelBerring_FrontLeft1 3
+    3300142: WheelBrake_FrontLeft1
+    3300144: WheelBrake_FrontLeft1 1
+    3300146: WheelBrake_FrontLeft1 2
+    3300148: WheelBrake_FrontLeft1 3
+    4300000: pCube33
+    4300002: pCube34
+    4300004: pCube36
+    4300006: pCube37
+    4300008: DrawerHandle1
+    4300010: pCylinder2
+    4300012: pCylinder3
+    4300014: pCylinder4
+    4300016: APL_Knob
+    4300018: Breather_ToggleBase
+    4300020: Breather_Toggle2
+    4300022: Breather_Toggle
+    4300024: Monitor
+    4300026: PowerSwitch
+    4300028: PowerSwitch_Base
+    4300030: Knob
+    4300032: BottomPanel
+    4300034: SidePanel
+    4300036: Monitor1
+    4300038: Knob
+    4300040: Handle
+    4300042: MonitorSupport_Bar
+    4300044: MonitorSupport_Bracket4
+    4300046: MonitorSupport_Bracket3
+    4300048: MonitorSupport_Bracket2
+    4300050: MonitorSupport_Bracket1
+    4300052: pSphere1
+    4300054: pCube43
+    4300056: pCube44
+    4300058: WheelBerring_FrontLeft1
+    4300060: Wheel_FrontLeft1
+    4300062: WheelBrake_FrontLeft1
+    4300064: WheelBerring_FrontLeft1
+    4300066: Wheel_FrontLeft1
+    4300068: WheelBrake_FrontLeft1
+    4300070: WheelBerring_FrontLeft1
+    4300072: Wheel_FrontLeft1
+    4300074: WheelBrake_FrontLeft1
+    4300076: WheelBerring_FrontLeft1
+    4300078: Wheel_FrontLeft1
+    4300080: WheelBrake_FrontLeft1
+    4300082: pCylinder5
+    4300084: Cap
+    4300086: CapBase
+    4300088: Container
+    4300090: Handle
+    4300092: HandleKnob
+    4300094: pCylinder6
+    4300096: GasConnection
+    4300098: Knob1
+    4300100: SuctionReg_Guage
+    4300102: Knob
+    4300104: DiaBase
+    4300106: DialHandle
+    4300108: MainPowerSwitch
+    4300110: Tower1
+    4300112: DiaBase
+    4300114: DialHandle
+    4300116: OPlus_Button
+    4300118: DrawerHandle4
+    4300120: DrawerHandle5
+    4300122: Cap
+    4300124: CapBase
+    4300126: Container
+    4300128: Handle
+    4300130: HandleKnob
+    4300132: Cap
+    4300134: CapBase
+    4300136: Container
+    4300138: Handle
+    4300140: HandleKnob
+    4300142: BottomBay
+    4300144: SideTableBracket
+    4300146: SideTableSupport1
+    4300148: SideTableSupport2
+    9500000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BreatherTube
+    second: {fileID: 2100000, guid: 601ad60008a830245b7baf1e10f0c35a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Main
+    second: {fileID: 2100000, guid: 1dcbf325720d4e145b7611ba949db097, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Wheelpads
+    second: {fileID: 2100000, guid: 5e97bfa74c19efc449ea47e055f77110, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_GasContainer
+    second: {fileID: 2100000, guid: d9a8f9d15b6f1f445bb423f0e5167c48, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Metal
+    second: {fileID: 2100000, guid: 5fb2dc8fb32e20348970feb2a80c4ce6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Monitor1
+    second: {fileID: 2100000, guid: 4bb142d5913b30949a30d599245de87f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Monitor2
+    second: {fileID: 2100000, guid: 2182000dc06a0ce49ab606bf96f6626a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_O2Dial_Breather
+    second: {fileID: 2100000, guid: 6b4df11a7431e684aa838b535021c4df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Screen1
+    second: {fileID: 2100000, guid: 55b976b2895994646bf19043afef39e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Screen2
+    second: {fileID: 2100000, guid: 935dd7b9beaf71c42bfd69d1967faccd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat_Tower
+    second: {fileID: 2100000, guid: ece006485263e834d8b6afbda016092f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: e3ea9a621790d7f4a8626e81703f5929, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,132 @@
+fileFormatVersion: 2
+guid: 256c60170769276429c5f34e2711562f
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Arm1
+    100002: Arm2
+    100004: Arm3
+    100006: Arm4
+    100008: Arm5
+    100010: Arm6
+    100012: Arm7
+    100014: Mount
+    100016: TV
+    100018: //RootNode
+    100020: WallMount
+    100022: Button
+    100024: Handle
+    100026: HandleBar
+    100028: Screen1
+    400000: Arm1
+    400002: Arm2
+    400004: Arm3
+    400006: Arm4
+    400008: Arm5
+    400010: Arm6
+    400012: Arm7
+    400014: Mount
+    400016: TV
+    400018: //RootNode
+    400020: WallMount
+    400022: Button
+    400024: Handle
+    400026: HandleBar
+    400028: Screen1
+    2300000: Arm1
+    2300002: Arm2
+    2300004: Arm3
+    2300006: Arm4
+    2300008: Arm5
+    2300010: Arm6
+    2300012: Arm7
+    2300014: Mount
+    2300016: TV
+    2300018: WallMount
+    2300020: Button
+    2300022: Handle
+    2300024: HandleBar
+    2300026: Screen1
+    3300000: Arm1
+    3300002: Arm2
+    3300004: Arm3
+    3300006: Arm4
+    3300008: Arm5
+    3300010: Arm6
+    3300012: Arm7
+    3300014: Mount
+    3300016: TV
+    3300018: WallMount
+    3300020: Button
+    3300022: Handle
+    3300024: HandleBar
+    3300026: Screen1
+    4300000: Arm6
+    4300002: Arm1
+    4300004: TV
+    4300006: Arm4
+    4300008: Arm3
+    4300010: Arm5
+    4300012: WallMount
+    4300014: Arm7
+    4300016: Mount
+    4300018: Arm2
+    4300020: Screen1
+    4300022: HandleBar
+    4300024: Handle
+    4300026: Button
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
