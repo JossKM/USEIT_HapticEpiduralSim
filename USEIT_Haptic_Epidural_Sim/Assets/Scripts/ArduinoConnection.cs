@@ -15,47 +15,58 @@ public class ArduinoConnection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        stream = new SerialPort(portName, baudRate);
-        stream.ReadTimeout = 2;
+        //stream = new SerialPort(portName, baudRate);
+        //stream.ReadTimeout = 2;
 
-        // connect to Arduino via Serial Port
-        try
-        {
-            stream.Open();
-
-            Debug.Log("Arduino connected on port: " + portName);
-        }
-        catch (IOException)
-        {
-            Debug.Log("ERROR: No device found on port: " + portName);
-            return;
-        }
+        //// connect to Arduino via Serial Port
+        //try
+        //{
+        //    stream.Open();
+        //
+        //    Debug.Log("Arduino connected on port: " + portName);
+        //}
+        //catch (IOException)
+        //{
+        //    Debug.Log("ERROR: No device found on port: " + portName);
+        //    return;
+        //}
         StartCoroutine(ConnectProcess());
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public SerialPort GetSerialPort()
     {
-        
+        return stream;
+    }
+
+    public bool isConnectedAndOpen()
+    {
+        return (stream != null && stream.IsOpen);
     }
 
     IEnumerator ConnectProcess()
     {
-        stream = new SerialPort(portName, baudRate);
-        stream.ReadTimeout = 2;
-
-        while (!stream.IsOpen)
+        while (!isConnectedAndOpen())
         {
-            try
+            if(stream == null)
             {
-                // attempt connection
-                stream.Open();
-                Debug.Log("Arduino connected on port: " + portName);
+                stream = new SerialPort(portName, baudRate);
+                stream.ReadTimeout = 2;
             }
-            catch (IOException)
+
+            if(!stream.IsOpen)
             {
-                Debug.Log("ERROR: No device found on port: " + portName);
+                try
+                {
+                    // attempt connection
+                    stream.Open();
+                    Debug.Log("Device connected on port: " + portName);
+                }
+                catch (IOException)
+                {
+                    Debug.Log("ERROR: No device found on port: " + portName);
+                }
+
             }
 
             yield return new WaitForSeconds(0.1f);

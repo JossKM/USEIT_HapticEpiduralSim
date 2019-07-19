@@ -263,10 +263,10 @@
       <HintPath>D:/2019.3.0a5/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="ArdunityCore">
-      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Assets/ARDUnity/Scripts/Internal/ArdunityCore.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Assets/Arduino Code/ARDUnity/Scripts/Internal/ArdunityCore.dll</HintPath>
     </Reference>
     <Reference Include="ArdunityCoreEditor">
-      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Assets/ARDUnity/Scripts/Internal/Editor/ArdunityCoreEditor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Assets/Arduino Code/ARDUnity/Scripts/Internal/Editor/ArdunityCoreEditor.dll</HintPath>
     </Reference>
     <Reference Include="Vuforia.UnityExtensions.Editor">
       <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/PackageCache/com.ptc.vuforia.engine@8.1.12/Vuforia/Plugins/Managed/Editor/Vuforia.UnityExtensions.Editor.dll</HintPath>

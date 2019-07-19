@@ -476,8 +476,10 @@ MonoBehaviour:
   needleLength: 0.1
   castAheadLength: 0.02
   constraint: {fileID: 1091614379327458904}
-  lastLayerPenetrated: {fileID: 0}
   arduino: {fileID: 1091614379800057984}
+  needleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   isPuncturing: 0
   kp: 0.3
   ki: 0.5
@@ -578,6 +580,7 @@ MonoBehaviour:
   workspaceVisualizer: {fileID: 1091614380831659114}
   devicePositionGameObject: {fileID: 1091614379507116619}
   numHapticPoints: 12
+  visualizeHapticPoints: 0
   proxyPositionVisualizerGameObjects:
   - {fileID: 1091614380237545203}
   - {fileID: 522596430613052684}
@@ -1831,11 +1834,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1091614379800058014}
     m_Modifications:
-    - target: {fileID: 5173969514918955691, guid: 4c083c60dc27fd548bda56e464b63497,
-        type: 3}
-      propertyPath: m_Name
-      value: needle
-      objectReference: {fileID: 0}
     - target: {fileID: 5173969514918955692, guid: 4c083c60dc27fd548bda56e464b63497,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1891,7 +1889,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5173969514918955691, guid: 4c083c60dc27fd548bda56e464b63497,
+        type: 3}
+      propertyPath: m_Name
+      value: needle
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6563833223551473056, guid: 4c083c60dc27fd548bda56e464b63497, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4c083c60dc27fd548bda56e464b63497, type: 3}
 --- !u!4 &1091614379971912981 stripped
 Transform:

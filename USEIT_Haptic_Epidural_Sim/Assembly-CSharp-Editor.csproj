@@ -60,51 +60,51 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\ColorInputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\ColorOutputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\CurveOutputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\DragInputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\ImpulseInputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\InputFilterEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\MappingInputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\OutputCombineEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\RTTTLSongEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\ToggleInputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\ToneOutputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\TriggerInputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\Editor\ValueOutputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\CommSocket\Editor\CommSerialEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\Editor\AnalogInputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\Editor\AnalogOutputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\Editor\DigitalInputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\Editor\DigitalOutputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\Editor\GenericServoEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\Editor\GenericToneEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\Editor\PulseOutputEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Internal\Editor\AboutArdunity.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\AudioSourceReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\ButtonReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\ColliderReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\DialSliderReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\DropdownReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\ExplosionReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\ForceReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\LightColorReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\LightIntensityReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\MoveAxisReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\Rotation2DReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\RotationAxisReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\SliderReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\TextReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\ToggleReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Editor\TorqueReactorEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\Editor\ArdunityAppUIEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\Editor\CommSerialUIEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\Editor\DialSliderEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\Editor\ListItemEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\Editor\ListViewEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\Editor\SliderSnapEditor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\Editor\ToggleEventEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\ColorInputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\ColorOutputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\CurveOutputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\DragInputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\ImpulseInputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\InputFilterEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\MappingInputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\OutputCombineEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\RTTTLSongEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\ToggleInputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\ToneOutputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\TriggerInputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\Editor\ValueOutputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\CommSocket\Editor\CommSerialEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\Editor\AnalogInputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\Editor\AnalogOutputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\Editor\DigitalInputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\Editor\DigitalOutputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\Editor\GenericServoEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\Editor\GenericToneEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\Editor\PulseOutputEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Internal\Editor\AboutArdunity.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\AudioSourceReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\ButtonReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\ColliderReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\DialSliderReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\DropdownReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\ExplosionReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\ForceReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\LightColorReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\LightIntensityReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\MoveAxisReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\Rotation2DReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\RotationAxisReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\SliderReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\TextReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\ToggleReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Editor\TorqueReactorEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\Editor\ArdunityAppUIEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\Editor\CommSerialUIEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\Editor\DialSliderEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\Editor\ListItemEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\Editor\ListViewEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\Editor\SliderSnapEditor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\Editor\ToggleEventEditor.cs" />
     <Compile Include="Assets\Scripts\Editor\ConfigManagerEditor.cs" />
     <Compile Include="Assets\Scripts\Editor\InvertAxisPropertyDrawer.cs" />
     <Compile Include="Assets\Scripts\Editor\NonEditableDrawer.cs" />
@@ -372,10 +372,10 @@
       <HintPath>D:/2019.3.0a5/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="ArdunityCore">
-      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Assets/ARDUnity/Scripts/Internal/ArdunityCore.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Assets/Arduino Code/ARDUnity/Scripts/Internal/ArdunityCore.dll</HintPath>
     </Reference>
     <Reference Include="ArdunityCoreEditor">
-      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Assets/ARDUnity/Scripts/Internal/Editor/ArdunityCoreEditor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Assets/Arduino Code/ARDUnity/Scripts/Internal/Editor/ArdunityCoreEditor.dll</HintPath>
     </Reference>
     <Reference Include="Vuforia.UnityExtensions.Editor">
       <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/PackageCache/com.ptc.vuforia.engine@8.1.12/Vuforia/Plugins/Managed/Editor/Vuforia.UnityExtensions.Editor.dll</HintPath>

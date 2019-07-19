@@ -55,11 +55,11 @@ public class NeedleBehaviour : MonoBehaviour
         needleRay = new Ray();
 
         // stop if haptic manager is not enabled
-        if(!HapticManager.isHapticAvail)
-        {
-            gameObject.SetActive(false);
-            return;
-        }
+        //if(!HapticManager.isHapticAvail)
+        //{
+        //    gameObject.SetActive(false);
+        //    return;
+        //}
     }
 
     // Update is called once per frame
@@ -183,12 +183,12 @@ public class NeedleBehaviour : MonoBehaviour
 				arduino.SetResistance ((float)lastLayerPenetrated.m_fluidResistance);
 
 
-				print("in layer: " + HapticNativePlugin.getLastLayerPenetrated () + ". Resistance: " + lastLayerPenetrated.m_fluidResistance);
+				//print("in layer: " + HapticNativePlugin.getLastLayerPenetrated () + ". Resistance: " + lastLayerPenetrated.m_fluidResistance);
 			} else {
 				lastLayerPenetrated = null;
 
 				arduino.SetResistance (0.0f);
-				Debug.Log ("not resisting");
+				//Debug.Log ("not resisting");
 			}
 
 		}

@@ -36,11 +36,6 @@ public class StepperMotorInterface : MonoBehaviour
         Debug.Log("lookin fer shit");
     }
 
-    void Update()
-    {
-	    
-    }
-
     void OnEndSearch()
     {
         foundDevices = commSerial.foundDevices;

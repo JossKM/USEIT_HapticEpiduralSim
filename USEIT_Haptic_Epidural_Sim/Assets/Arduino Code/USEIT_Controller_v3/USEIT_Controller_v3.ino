@@ -1,4 +1,4 @@
-//#define DEBUG // if defined, will print debug messages to the serial line.
+#define DEBUG // if defined, will print debug messages to the serial line.
 
 // SIGNAL MAPPING /////////////
 const byte COMMAND_NULL = 0;

@@ -40,14 +40,14 @@ public class HapticAxialConstraint : MonoBehaviour
         origin = HapticManager.hapticOrigin;
 	    originalSlaveOrientation = constraintSlave.rotation;
 
-        if (!HapticManager.isHapticAvail)
-        {
-            gameObject.SetActive(false);
-            return;
-        }
+        //if (!HapticManager.isHapticAvail)
+        //{
+        //    gameObject.SetActive(false);
+        //    return;
+        //}
     }
-	
-	void Update ()
+
+    void Update ()
 	{
         if (HapticNativePlugin.isButtonPressed((int)FalconButton.LEFT))
         {

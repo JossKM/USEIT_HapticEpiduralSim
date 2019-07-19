@@ -18,11 +18,11 @@ public class TouchableMeshObject : HapticObject
     void Start()
     {
         // if no haptics, stop
-       if (HapticManager.isHapticAvail)
-       {
-           gameObject.SetActive(false);
-           return;
-       }
+       //if (HapticManager.isHapticAvail)
+       //{
+       //    gameObject.SetActive(false);
+       //    return;
+       //}
 
 
 

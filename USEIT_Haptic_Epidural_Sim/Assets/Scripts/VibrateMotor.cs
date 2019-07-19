@@ -6,11 +6,23 @@ using System.IO;
 
 public class VibrateMotor : MonoBehaviour
 {
+    const byte COMMAND_NULL = 0;
+    const byte COMMAND_LEFT = 1;
+    const byte COMMAND_BOTTOM = 2;
+    const byte COMMAND_RIGHT = 3;
+    const byte COMMAND_TOP = 4;
+
+    const byte MAX_VIBES = 255;
+    const byte MED_VIBES = 100;
+
     Vector3 deltaConstraintPosition = new Vector3(0, 0, 0);
 
     //access script
     public ArduinoConnection arduinoConnection;
     public HapticAxialConstraint constraint;
+
+    [SerializeField]
+    string recvStr;
 
     public GameObject axialConstraintPos;
 
@@ -41,77 +53,113 @@ public class VibrateMotor : MonoBehaviour
         CheckDeltaConstraint(deltaConstraintPosition, direction);
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionStay(Collision col)
     {
-        if (col.gameObject.tag == "Bone")
+        //if (col.gameObject.tag == "Bone")
         {
             //5 for top(DNE), 4 for left, 3 for bottom, 2 for right, 1 for all
-            arduinoConnection.WriteByte(1);
-            Debug.Log("Touched bone!");
+            //arduinoConnection.WriteByte(1);
+
+            byte motorVal = 0;
+            byte motorCMD = COMMAND_NULL;
+
+            motorCMD = COMMAND_LEFT;
+            motorVal = MAX_VIBES;
+            arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+            motorCMD = COMMAND_RIGHT;
+            motorVal = MAX_VIBES;
+            arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+            motorCMD = COMMAND_TOP;
+            motorVal = MAX_VIBES;
+            arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+            motorCMD = COMMAND_BOTTOM;
+            motorVal = MAX_VIBES;
+            arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+
+            //Debug.Log("Touched bone!");
         }
     }
 
     void CheckDeltaConstraint(Vector3 deltaPos, Vector3 direction)
     {
+        if(!arduinoConnection.isConnectedAndOpen())
+        {
+            Debug.Log("Port not open for Vibrotactile feedback!");
+            return;
+        }
+
+        recvStr = arduinoConnection.ReadArduino();
+
         bool constraintEnabled = constraint.GetEnabled();
         if (constraintEnabled)
         {
             if(deltaPos.sqrMagnitude > minMaxHapticDistance.x * minMaxHapticDistance.x)
             {
+                byte motorVal = 0;
+                byte motorCMD = COMMAND_NULL;
+
                // x axis
                 if(deltaPos.x > 0)
                 {
                     //too far right
-                    arduinoConnection.WriteByte(2);
-                    Debug.Log("Too right!");
+                    motorCMD = COMMAND_RIGHT;
+                    motorVal = MED_VIBES;
+                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+                    motorCMD = COMMAND_LEFT;
+                    motorVal = 0;
+                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+                    //Debug.Log("Too right!");
                 } else
                 {
                     //too far left
-                    arduinoConnection.WriteByte(4);
-                    Debug.Log("Too left!");
+                    motorCMD = COMMAND_LEFT;
+                    motorVal = MED_VIBES;
+                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+                    motorCMD = COMMAND_RIGHT;
+                    motorVal = 0;
+                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+                    //Debug.Log("Too left!");
                 }
 
                 // y axis
                 if (deltaPos.y > 0)
                 {
                     //too far up
-                    arduinoConnection.WriteByte(3);
-                    Debug.Log("Too up!");
+                    motorCMD = COMMAND_TOP;
+                    motorVal = MED_VIBES;
+                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+                    motorCMD = COMMAND_BOTTOM;
+                    motorVal = 0;
+                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+                    //Debug.Log("Too up!");
                 }
                 else
                 {
                     //too far down
-                    arduinoConnection.WriteByte(3);
-                    Debug.Log("Too down!");
+                    motorCMD = COMMAND_BOTTOM;
+                    motorVal = MED_VIBES;
+                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+                    motorCMD = COMMAND_TOP;
+                    motorVal = 0;
+                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+
+                    //Debug.Log("Too down!");
                 }
+
+
             }
 
         }
-
-
-        //if (needlePos.x + 1 > deltaPos.x)
-        //{
-        //    //too far right
-        //    arduinoConnection.WriteByte(2);
-        //    Debug.Log("Too right!");
-        //}
-        //else if (needlePos.x - 1 < deltaPos.x)
-        //{
-        //    //too far left
-        //    arduinoConnection.WriteByte(4);
-        //    Debug.Log("Too left!");
-        //}
-        //if (needlePos.y + 1 > deltaPos.y)
-        //{
-        //    //too far up
-        //    arduinoConnection.WriteByte(3);
-        //    Debug.Log("Too up!");
-        //}
-        //else if (needlePos.y - 1 < deltaPos.y)
-        //{
-        //    //too far down
-        //    arduinoConnection.WriteByte(3);
-        //    Debug.Log("Too down!");
-        //}
     }
 }

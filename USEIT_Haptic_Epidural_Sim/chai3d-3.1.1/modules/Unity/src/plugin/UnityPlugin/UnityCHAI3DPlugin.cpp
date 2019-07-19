@@ -231,7 +231,7 @@ namespace NeedleSimPlugin
 
 
 #ifdef HAPTIC_DEBUG
-				PRINTLN("Device pos: " << tool->getDeviceGlobalPos() << "/ Proxy pos: " << tool->m_hapticTip->getGlobalPosProxy());
+				
 
 
 				// report on when the haptic force feedback is enabled/disabled
@@ -311,14 +311,18 @@ namespace NeedleSimPlugin
 					outPosArray[i][0] = tool->getHapticPoint(i)->getGlobalPosGoal().y();
 					outPosArray[i][1] = tool->getHapticPoint(i)->getGlobalPosGoal().z();
 					outPosArray[i][2] = -1.0 * tool->getHapticPoint(i)->getGlobalPosGoal().x();
-
-
 					}
 					catch (exception e)
 					{
 						PRINTWAIT("Something went wrong in GetProxyPositions?", 10000)
 					}
 				}
+
+
+//#ifdef HAPTIC_DEBUG
+//				PRINTLN("Dev pos: " << tool->getDeviceGlobalPos() << "/ Prox pos: " << tool->m_hapticTip->getGlobalPosProxy());
+//				PRINTLN("Prox 0 at pos: " << cVector3d(outPosArray[0][0], outPosArray[0][1], outPosArray[0][2]));
+//#endif
 			}
 			else
 			{
@@ -329,14 +333,6 @@ namespace NeedleSimPlugin
 					outPosArray[i][2] = 0.0;
 				}
 			}
-
-	//#ifdef HAPTIC_DEBUG
-	//		PRINTLN("Proxy 0 at position: " << 
-	//			outPosArray[0][0] <<
-	//			outPosArray[0][1] <<
-	//			outPosArray[0][2]);
-	//#endif
-
 		}
 
 		bool isTouching(int objectId)

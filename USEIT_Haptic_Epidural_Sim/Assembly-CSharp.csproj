@@ -60,53 +60,53 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ARDUnity\Examples\Custom Controller\MyController.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\ColorInput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\ColorOutput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\CurveOutput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\DragInput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\ImpulseInput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\InputFilter.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\MappingInput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\OutputCombine.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\RTTTLSong.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\ToggleInput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\ToneOutput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\TriggerInput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Bridge\ValueOutput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\CommSocket\CommSerial.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\AnalogInput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\AnalogOutput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\DigitalInput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\DigitalOutput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\GenericServo.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\GenericTone.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Controller\PulseOutput.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Internal\ControllerDataType.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\AudioSourceReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\ButtonReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\ColliderReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\DialSliderReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\DropdownReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\ExplosionReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\ForceReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\LightColorReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\LightIntensityReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\MoveAxisReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\Rotation2DReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\RotationAxisReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\SliderReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\TextReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\ToggleReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Reactor\TorqueReactor.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\ArdunityAppUI.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\CommSerialUI.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\CommSocketUI.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\DialSlider.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\ListItem.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\ListView.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\SliderSnap.cs" />
-    <Compile Include="Assets\ARDUnity\Scripts\Utility\ToggleEvent.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Examples\Custom Controller\MyController.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\ColorInput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\ColorOutput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\CurveOutput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\DragInput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\ImpulseInput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\InputFilter.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\MappingInput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\OutputCombine.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\RTTTLSong.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\ToggleInput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\ToneOutput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\TriggerInput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Bridge\ValueOutput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\CommSocket\CommSerial.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\AnalogInput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\AnalogOutput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\DigitalInput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\DigitalOutput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\GenericServo.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\GenericTone.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Controller\PulseOutput.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Internal\ControllerDataType.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\AudioSourceReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\ButtonReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\ColliderReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\DialSliderReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\DropdownReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\ExplosionReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\ForceReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\LightColorReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\LightIntensityReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\MoveAxisReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\Rotation2DReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\RotationAxisReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\SliderReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\TextReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\ToggleReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Reactor\TorqueReactor.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\ArdunityAppUI.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\CommSerialUI.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\CommSocketUI.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\DialSlider.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\ListItem.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\ListView.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\SliderSnap.cs" />
+    <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\ToggleEvent.cs" />
     <Compile Include="Assets\Scripts\ArduinoConnection.cs" />
     <Compile Include="Assets\Scripts\ArduinoInterface.cs" />
     <Compile Include="Assets\Scripts\CameraControl.cs" />
@@ -152,7 +152,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\StreamingAssets\Vuforia\helloDatabase.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
-    <None Include="Assets\ARDUnity\Plugins\Android\AndroidManifest.xml" />
+    <None Include="Assets\Arduino Code\ARDUnity\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
@@ -161,7 +161,7 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
-    <None Include="Assets\ARDUnity\Examples\Buzzer\SampleSongs.txt" />
+    <None Include="Assets\Arduino Code\ARDUnity\Examples\Buzzer\SampleSongs.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
@@ -407,7 +407,7 @@
       <HintPath>D:/2019.3.0a5/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="ArdunityCore">
-      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Assets/ARDUnity/Scripts/Internal/ArdunityCore.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Assets/Arduino Code/ARDUnity/Scripts/Internal/ArdunityCore.dll</HintPath>
     </Reference>
     <Reference Include="Vuforia.UnityExtensions">
       <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/PackageCache/com.ptc.vuforia.engine@8.1.12/Vuforia/Plugins/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>

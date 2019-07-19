@@ -38,7 +38,9 @@ public class HapticManager : MonoBehaviour
 
 		try
 		{
-            hapticOrigin = transform;
+            Debug.Log("Haptic Manager starting simulation...");
+
+           hapticOrigin = GameObject.Find("Haptic Origin").transform;
 
             isHapticAvail = HapticNativePlugin.prepareHaptics(worldScale);
 

@@ -45,68 +45,46 @@ public class ArduinoInterface : MonoBehaviour
 
     
 
-    IEnumerable ConnectProcess()
-    {
-        stream = new SerialPort(portName, baudRate);
-        stream.ReadTimeout = 2;
-
-        while (!stream.IsOpen)
-        {
-            try
-            {
-                // attempt connection
-                stream.Open();
-                Debug.Log("Arduino connected on port: " + portName);
-            }
-            catch (IOException)
-            {
-                Debug.Log("ERROR: No device found on port: " + portName);
-            }
-
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
-
-    void Update()
-    {
+   void Update()
+   {
 		
-        // if connected to arduino
-        if (stream.IsOpen)
-        {
+       // if connected to arduino
+       if (stream.IsOpen)
+       {
 			
-        }
-        else
-        {
-            // attempt to connect again
-            try
-            {
-                stream.Open();
-
-                Debug.Log("Arduino connected on port: " + portName);
-            }
-            catch (IOException)
-            {
-            }
-        }
-    }
+       }
+       else
+       {
+           // attempt to connect again
+           try
+           {
+               stream.Open();
+   
+               Debug.Log("Arduino connected on port: " + portName);
+           }
+           catch (IOException)
+           {
+           }
+       }
+   }
 
 	public void SetResistance(float resistanceValue)
 	{
         if(currentFluidResistance != resistanceValue)
         {
             currentFluidResistance = resistanceValue;
-
+        
             if (stream.IsOpen)
             {
                 //byte message = (byte)(Mathf.Lerp(1.0f, 200.0f, (currentFluidResistance)) + 0.5f);
                 //Debug.Log("sending new resistance message: " + message);
                 //WriteByte(message);
-
+        
                 byte[] message = new byte[2];
                 message[0] = COMMAND_STEP;
                 message [1] = (byte)(Mathf.Lerp(0.0f, 255.0f, (currentFluidResistance)) + 0.5f);
                 Debug.Log("sending new resistance message: " + message[1]);
-
+        
                 stream.Write(message, 0, 2);
             } else
             {
