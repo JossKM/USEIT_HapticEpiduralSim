@@ -18,7 +18,13 @@ public class CameraControl : MonoBehaviour
 
     private void Start()
     {
-        deviceOrigin = GameObject.Find("Haptic Origin").transform;
+        if (!HapticManager.isHapticAvail)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        deviceOrigin = HapticManager.hapticOrigin;
         workspaceOffset = workspace.position - transform.position;
     }
 

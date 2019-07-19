@@ -17,8 +17,14 @@ public class TouchableMeshObject : HapticObject
 {
     void Start()
     {
+        // if no haptics, stop
+       if (HapticManager.isHapticAvail)
+       {
+           gameObject.SetActive(false);
+           return;
+       }
 
-        var devicePosition = GameObject.Find("Haptic Origin");
+
 
         Mesh mesh = this.GetComponent<MeshFilter>().mesh;
         Vector3[] vertices = mesh.vertices;
@@ -42,7 +48,7 @@ public class TouchableMeshObject : HapticObject
             nextParent = nextParent.parent;
         }
 
-        objectId = HapticNativePlugin.AddObject(this.transform.position - devicePosition.transform.position,
+        objectId = HapticNativePlugin.AddObject(this.transform.position - HapticManager.hapticOrigin.position,
             totalScale,
             this.transform.rotation.eulerAngles,
             vertices,
@@ -50,10 +56,22 @@ public class TouchableMeshObject : HapticObject
             mesh.vertices.Length,
             triangles,
             mesh.triangles.Length / 3);
+
+        StartCoroutine(UpdateProperties());
     }
 
-    void Update()
+    IEnumerator UpdateProperties()
     {
-        HapticNativePlugin.setObjectProperties(objectId, stiffness, friction_static, friction_dynamic, viscosity, penetrationForce);
+        if (HapticManager.isHapticAvail)
+        {
+            HapticNativePlugin.setObjectProperties(objectId, stiffness, friction_static, friction_dynamic, viscosity, penetrationForce);
+        }
+
+        yield return new WaitForSeconds(1.0f);
     }
+
+    //void Update()
+    //{
+    //    
+    //}
 }

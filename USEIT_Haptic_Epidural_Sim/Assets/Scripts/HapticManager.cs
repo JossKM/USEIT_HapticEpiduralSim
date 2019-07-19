@@ -13,7 +13,8 @@ public class HapticManager : MonoBehaviour
     public bool useHaptic;
     public static bool isHapticAvail;
    
-    private Vector3 originalPosition;
+    [SerializeField]
+    public static Transform hapticOrigin;
 
     // for debugging. will scale accorfing to the chai3d haptic world scale
     public GameObject workspaceVisualizer;
@@ -23,6 +24,8 @@ public class HapticManager : MonoBehaviour
 
     [SerializeField]
     uint numHapticPoints = 12;
+
+    public bool visualizeHapticPoints;
 
     [SerializeField]
     Transform[] proxyPositionVisualizerGameObjects;
@@ -35,17 +38,24 @@ public class HapticManager : MonoBehaviour
 
 		try
 		{
-        isHapticAvail = HapticNativePlugin.prepareHaptics(worldScale);
+            hapticOrigin = transform;
 
-        if (workspaceVisualizer != null)
-        {
-            workspaceVisualizer.transform.localScale = new Vector3((float)worldScale, (float)worldScale, (float)worldScale) * 2.0f;
-        }
+            isHapticAvail = HapticNativePlugin.prepareHaptics(worldScale);
 
-		if(isHapticAvail)
-		{
-			HapticNativePlugin.startHaptics();
-		}
+            if (workspaceVisualizer != null)
+            {
+                workspaceVisualizer.transform.localScale = new Vector3((float)worldScale, (float)worldScale, (float)worldScale) * 2.0f;
+            }
+
+		    if(isHapticAvail)
+		    {
+			    HapticNativePlugin.startHaptics();
+		    } else
+            {
+                gameObject.SetActive(false);
+                Debug.Log("Haptic simulation unable to start. Haptics disabled.");
+                return;
+            }
 		} catch(Exception e)
 		{
 			Debug.Log("ERROR when starting haptics: " + e.ToString());
@@ -55,7 +65,10 @@ public class HapticManager : MonoBehaviour
 
     private void Start()
     {
-        HapticNativePlugin.setToolRadius(toolRadius);
+        if (isHapticAvail)
+        {
+            HapticNativePlugin.setToolRadius(toolRadius);
+        }
     }
 
     private void OnDestroy()
@@ -66,10 +79,8 @@ public class HapticManager : MonoBehaviour
 
     private void Update()
     {
-        if (isHapticAvail)
+        if (visualizeHapticPoints)
         {
-            //transform.localPosition = HapticNativePlugin.GetProxyPosition();
-
             if (devicePositionGameObject != null)
             {
                 devicePositionGameObject.transform.localPosition = HapticNativePlugin.GetDevicePosition();
@@ -82,6 +93,9 @@ public class HapticManager : MonoBehaviour
             {
                 proxyPositionVisualizerGameObjects[i].localPosition = positions[i];
             }
+        } else
+        {
+           transform.localPosition = HapticNativePlugin.GetProxyPosition();
         }
     }
 }

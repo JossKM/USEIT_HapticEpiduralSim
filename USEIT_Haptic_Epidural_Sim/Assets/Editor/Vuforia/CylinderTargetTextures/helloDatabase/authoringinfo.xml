@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VuforiaUnityInfo version="7.0">
+    <TargetSet version="5.0" toolVersion="2.8.0">
+        <CylinderTarget name="PolygonCylinder" version="3.0" targetId="5ba541820b4043e4a8783a7c65559529" sideLength="0.086000" topDiameter="0.027374" bottomDiameter="0.027374" sideImage="PolygonCylinder.Body_scaled.jpg"/>
+    </TargetSet>
+</VuforiaUnityInfo>

@@ -107,23 +107,50 @@
     <Compile Include="Assets\ARDUnity\Scripts\Utility\ListView.cs" />
     <Compile Include="Assets\ARDUnity\Scripts\Utility\SliderSnap.cs" />
     <Compile Include="Assets\ARDUnity\Scripts\Utility\ToggleEvent.cs" />
+    <Compile Include="Assets\Scripts\ArduinoConnection.cs" />
     <Compile Include="Assets\Scripts\ArduinoInterface.cs" />
     <Compile Include="Assets\Scripts\CameraControl.cs" />
+    <Compile Include="Assets\Scripts\ClientRouter.cs" />
+    <Compile Include="Assets\Scripts\Core\VRPN_Analog.cs" />
+    <Compile Include="Assets\Scripts\Core\VRPN_Button.cs" />
+    <Compile Include="Assets\Scripts\Core\VRPN_Client.cs" />
+    <Compile Include="Assets\Scripts\Core\VRPN_Manager.cs" />
+    <Compile Include="Assets\Scripts\Core\VRPN_NativeBridge.cs" />
+    <Compile Include="Assets\Scripts\Core\VRPN_Tracker.cs" />
+    <Compile Include="Assets\Scripts\Events\AnalogEvent.cs" />
+    <Compile Include="Assets\Scripts\Events\ButtonEvent.cs" />
     <Compile Include="Assets\Scripts\Game\GameController.cs" />
     <Compile Include="Assets\Scripts\Game\LerpToPosition.cs" />
     <Compile Include="Assets\Scripts\HapticAxialConstraint.cs" />
     <Compile Include="Assets\Scripts\HapticManager.cs" />
     <Compile Include="Assets\Scripts\HapticMembraneEffect.cs" />
-    <Compile Include="Assets\Scripts\HapticSpringConstraint.cs" />
+    <Compile Include="Assets\Scripts\IMUVRPN.cs" />
     <Compile Include="Assets\Scripts\MPU6050Orienter.cs" />
     <Compile Include="Assets\Scripts\NeedleBehaviour.cs" />
     <Compile Include="Assets\Scripts\PenetrableMaterial.cs" />
+    <Compile Include="Assets\Scripts\Saran\Player.cs" />
+    <Compile Include="Assets\Scripts\Saran\VRPNDebug.cs" />
     <Compile Include="Assets\Scripts\StepperMotorInterface.cs" />
     <Compile Include="Assets\Scripts\ToggleMeshRenderer.cs" />
     <Compile Include="Assets\Scripts\TouchableBoxObject.cs" />
     <Compile Include="Assets\Scripts\TouchableMeshObject.cs" />
+    <Compile Include="Assets\Scripts\Utility\InvertAxis.cs" />
+    <Compile Include="Assets\Scripts\Utility\NonEditableAttribute.cs" />
+    <Compile Include="Assets\Scripts\Utility\VRPN_ConfigManager.cs" />
+    <Compile Include="Assets\Scripts\VRPNTest.cs" />
+    <Compile Include="Assets\Scripts\VibrateMotor.cs" />
+    <Compile Include="Assets\Vuforia-AR-Integration\ARPromptController.cs" />
+    <Compile Include="Assets\_Scripts\Objectives\CollisionEvent.cs" />
+    <Compile Include="Assets\_Scripts\Objectives\CollisionObjective.cs" />
+    <Compile Include="Assets\_Scripts\Objectives\NumberedObjective.cs" />
+    <Compile Include="Assets\_Scripts\Objectives\Objective.cs" />
+    <Compile Include="Assets\_Scripts\Objectives\ObjectiveController.cs" />
+    <Compile Include="Assets\_Scripts\Objectives\ObjectiveManager.cs" />
+    <Compile Include="Assets\_Scripts\Objectives\ObjectiveUI.cs" />
+    <Compile Include="Assets\test.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\StreamingAssets\Vuforia\helloDatabase.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\ARDUnity\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
@@ -143,64 +170,67 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="VuforiaScripts">
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/VuforiaScripts.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ugui">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.ugui.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.ugui.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="VuforiaEditorScripts">
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/VuforiaEditorScripts.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-weaver.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.XR.LegacyInputHelpers">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.SpatialTracking">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpatialTracking">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.XR.LegacyInputHelpers">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ugui.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.ugui.Editor.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/Unity.ugui.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Runtime">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/2019.3.0a5/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -377,16 +407,10 @@
       <HintPath>D:/2019.3.0a5/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="ArdunityCore">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Assets/ARDUnity/Scripts/Internal/ArdunityCore.dll</HintPath>
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Assets/ARDUnity/Scripts/Internal/ArdunityCore.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/Users/Joss/UOIT-GAMERLAB-VR/UOIT-VR/USEIT_Haptic_Epidural_Sim/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+    <Reference Include="Vuforia.UnityExtensions">
+      <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/PackageCache/com.ptc.vuforia.engine@8.1.12/Vuforia/Plugins/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/2019.3.0a5/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -747,6 +771,10 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{C358EB0A-2968-68DC-A0C7-A999BE88C026}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="SharpConfig.csproj">
+      <Project>{13DF31E7-E7BC-4E12-09EC-CBD2768D7254}</Project>
+      <Name>SharpConfig</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

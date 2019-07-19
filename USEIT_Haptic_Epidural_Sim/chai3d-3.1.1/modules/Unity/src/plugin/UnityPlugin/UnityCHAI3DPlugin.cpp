@@ -229,7 +229,10 @@ namespace NeedleSimPlugin
 				// send forces to haptic device
 				tool->applyToDevice();
 
+
 #ifdef HAPTIC_DEBUG
+				PRINTLN("Device pos: " << tool->getDeviceGlobalPos() << "/ Proxy pos: " << tool->m_hapticTip->getGlobalPosProxy());
+
 
 				// report on when the haptic force feedback is enabled/disabled
 				{
@@ -326,6 +329,14 @@ namespace NeedleSimPlugin
 					outPosArray[i][2] = 0.0;
 				}
 			}
+
+	//#ifdef HAPTIC_DEBUG
+	//		PRINTLN("Proxy 0 at position: " << 
+	//			outPosArray[0][0] <<
+	//			outPosArray[0][1] <<
+	//			outPosArray[0][2]);
+	//#endif
+
 		}
 
 		bool isTouching(int objectId)
@@ -416,6 +427,10 @@ namespace NeedleSimPlugin
 
 		void setObjectProperties(int objectID, double stiffness, double friction_static, double friction_dynamic, double viscosity, double penetrationForce)
 		{
+//#ifdef HAPTIC_DEBUG
+//			PRINTLN("object updated lol?");
+//#endif
+
 			cGenericObject* object = world->getChild(objectID);
 
 			// read the scale factor between the physical workspace of the haptic

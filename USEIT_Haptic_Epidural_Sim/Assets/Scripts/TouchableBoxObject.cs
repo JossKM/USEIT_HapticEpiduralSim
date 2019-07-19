@@ -7,9 +7,12 @@ public class TouchableBoxObject : HapticObject
     // Use this for initialization
     void Start()
     {
+        if (!HapticManager.isHapticAvail)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
 
-        var devicePosition = GameObject.Find("Haptic Origin");
-        
         Vector3 totalScale = this.transform.localScale;
 
         // get global scale by looping through parenting system
@@ -21,7 +24,7 @@ public class TouchableBoxObject : HapticObject
         }
 
         objectId = HapticNativePlugin.AddBoxObject(
-            this.transform.position - devicePosition.transform.position,
+            this.transform.position - HapticManager.hapticOrigin.position,
             totalScale,
             this.transform.rotation.eulerAngles
             );

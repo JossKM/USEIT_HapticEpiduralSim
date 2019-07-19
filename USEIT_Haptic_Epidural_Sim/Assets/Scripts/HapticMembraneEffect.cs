@@ -17,8 +17,14 @@ public class HapticMembraneEffect : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        //Assert.AreNotEqual(springMass, 0.0);
+        Assert.AreNotEqual(springMass, 0.0);
         //
+
+        if (!HapticManager.isHapticAvail)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
 
         var a = GetComponent<TouchableMeshObject>();
 
@@ -27,9 +33,5 @@ public class HapticMembraneEffect : MonoBehaviour
         HapticNativePlugin.addViscosityEffect(objectId, GetComponent<HapticObject>().viscosity);
         HapticNativePlugin.addMembraneEffect(objectId, resistance, friction_static, friction_dynamic, maxForce, distanceToMaxForce, springMass, penetrationThreshold);
     }
-	
-	// Update is called once per frame
-	void Update ()
-	{
-    }
+
 }

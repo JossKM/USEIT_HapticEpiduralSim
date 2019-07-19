@@ -34,15 +34,18 @@ public class HapticAxialConstraint : MonoBehaviour
 
     private Quaternion originalSlaveOrientation;
 
-    void Awake()
-    {
-        origin = GameObject.Find("Haptic Origin").transform;
-    }
 
 	void Start ()
 	{
+        origin = HapticManager.hapticOrigin;
 	    originalSlaveOrientation = constraintSlave.rotation;
-	}
+
+        if (!HapticManager.isHapticAvail)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+    }
 	
 	void Update ()
 	{
@@ -62,6 +65,9 @@ public class HapticAxialConstraint : MonoBehaviour
         {
             transform.Rotate(Vector3.right, -rotationSpeed * Time.deltaTime);
         }
+
+        //Debug.Log("Trans: " + transform.position);
+        //Debug.Log("Origin: " + origin.position);
 
         Vector3 pos = transform.position - origin.position;
 
@@ -87,6 +93,11 @@ public class HapticAxialConstraint : MonoBehaviour
 			constraintEnabled = enabled;
 		}
 	}
+
+    public bool GetEnabled()
+    {
+        return constraintEnabled;
+    }
 }
 
 

@@ -11,37 +11,55 @@ public struct NeedlePunctureData
 public class NeedleBehaviour : MonoBehaviour
 {
     // Properties /////////////////////////////////////////////////
-    public float needleLength = 0.1f;
+    [SerializeField]
+    float needleLength = 0.1f;
 
     // how far ahead to cast rays beyond the needle itself
-    public float castAheadLength = 0.05f;
+    [SerializeField]
+    float castAheadLength = 0.05f;
 
     //public HapticAxialConstraint axialConstraint;
-    public Ray needleRay;
-    public NeedlePunctureData punctureData;
+    Ray needleRay;
+    NeedlePunctureData punctureData;
 
     // applies when penetrating
+    [SerializeField]
     public HapticAxialConstraint constraint;
 
-	public PenetrableMaterial lastLayerPenetrated;
+	PenetrableMaterial lastLayerPenetrated;
 
-	// Arduino communication for fluid resistance
-	public ArduinoInterface arduino;
+    // Arduino communication for fluid resistance
+    [SerializeField]
+    ArduinoInterface arduino;
+
+    [SerializeField]
+    LayerMask needleLayerMask;
 
     public bool isPuncturing = false;
 
 
 	[Header("PID properties")]
-	public double kp 	= 0.8d;
-	public double ki 	= 0.2d;
-	public double kd 	= 0.5d;
-	public double gain	= 0.4d;
+    [SerializeField]
+    public double kp 	= 0.8d;
+    [SerializeField]
+    public double ki 	= 0.2d;
+    [SerializeField]
+    public double kd 	= 0.5d;
+    [SerializeField]
+    public double gain	= 0.4d;
 
 
     // Use this for initialization
     void Start()
     {
         needleRay = new Ray();
+
+        // stop if haptic manager is not enabled
+        if(!HapticManager.isHapticAvail)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
     }
 
     // Update is called once per frame
@@ -58,7 +76,7 @@ public class NeedleBehaviour : MonoBehaviour
         needleRay.direction = direction * castLength;
 
         //raycast to determine what is in the needle's path
-        RaycastHit[] hits = Physics.RaycastAll(needleRay, needleLength);
+        RaycastHit[] hits = Physics.RaycastAll(needleRay, needleLength, needleLayerMask);
 
         //ensure only haptic objects are evaluated, and sort them by distance
         LinkedList<RaycastHit> sortedHits = SortAndFilterPenetrations(hits);
