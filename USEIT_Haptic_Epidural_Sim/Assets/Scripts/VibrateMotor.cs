@@ -110,9 +110,9 @@ public class VibrateMotor : MonoBehaviour
                     motorVal = MED_VIBES;
                     arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
 
-                    motorCMD = COMMAND_LEFT;
-                    motorVal = 0;
-                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+                    //motorCMD = COMMAND_LEFT;
+                    //motorVal = 0;
+                    //arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
 
                     //Debug.Log("Too right!");
                 } else
@@ -122,9 +122,9 @@ public class VibrateMotor : MonoBehaviour
                     motorVal = MED_VIBES;
                     arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
 
-                    motorCMD = COMMAND_RIGHT;
-                    motorVal = 0;
-                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+                    //motorCMD = COMMAND_RIGHT;
+                    //motorVal = 0;
+                    //arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
 
                     //Debug.Log("Too left!");
                 }
@@ -137,9 +137,9 @@ public class VibrateMotor : MonoBehaviour
                     motorVal = MED_VIBES;
                     arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
 
-                    motorCMD = COMMAND_BOTTOM;
-                    motorVal = 0;
-                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+                    //motorCMD = COMMAND_BOTTOM;
+                    //motorVal = 0;
+                    //arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
 
                     //Debug.Log("Too up!");
                 }
@@ -150,9 +150,9 @@ public class VibrateMotor : MonoBehaviour
                     motorVal = MED_VIBES;
                     arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
 
-                    motorCMD = COMMAND_TOP;
-                    motorVal = 0;
-                    arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
+                    //motorCMD = COMMAND_TOP;
+                    //motorVal = 0;
+                    //arduinoConnection.GetSerialPort().Write(new byte[2] { motorCMD, motorVal }, 0, 2);
 
                     //Debug.Log("Too down!");
                 }

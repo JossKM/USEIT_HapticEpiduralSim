@@ -161,9 +161,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HapticLayers.cpp" />
+    <ClCompile Include="mathUtils.cpp" />
     <ClCompile Include="UnityCHAI3DPlugin.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DebugSettings.h" />
+    <ClInclude Include="HapticLayers.h" />
+    <ClInclude Include="mathUtils.h" />
     <ClInclude Include="PIDController.h" />
     <ClInclude Include="UnityCHAI3DPlugin.h" />
   </ItemGroup>

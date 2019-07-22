@@ -9,27 +9,24 @@
 #include "chai3d.h"
 //------------------------------------------------------------------------------
 using namespace chai3d;
-using namespace std;
 //------------------------------------------------------------------------------
 #include "UnityCHAI3DPlugin.h"
+//
+#include "mathUtils.h"
+#include "HapticLayers.h"
+#include "DebugSettings.h"
 //------------------------------------------------------------------------------
-
-// quality-of-life debugging preprocessor macros, because i'm lazy - joss
- #define HAPTIC_DEBUG
-
-#ifdef HAPTIC_DEBUG
-#define PRINTLN(x) std::cout << x << std::endl;
-#define PRINTWAIT(x, time) std::cout << x << std::endl; Sleep(time);
-#else
-#define PRINTLN(x) ; 
-#define PRINTWAIT(x, time) ;
-#endif
 
 namespace NeedleSimPlugin
 {
 	extern "C" {
 
-		// a world that contains all objects of the virtual environment
+
+		//--------------------------------------------------------------------------
+		// GLOBALS
+		//--------------------------------------------------------------------------
+
+			// a world that contains all objects of the virtual environment
 		cWorld* world;
 
 		// clock
@@ -63,9 +60,20 @@ namespace NeedleSimPlugin
 
 		HapticLayerContainer patient;
 
+
 #ifdef HAPTIC_DEBUG
 		bool lastForceEngagedState(false);
 #endif
+
+
+
+
+
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 		bool prepareHaptics(double hapticScale)
 		{
@@ -231,7 +239,7 @@ namespace NeedleSimPlugin
 
 
 #ifdef HAPTIC_DEBUG
-				
+
 
 
 				// report on when the haptic force feedback is enabled/disabled
@@ -239,7 +247,7 @@ namespace NeedleSimPlugin
 					bool isEngaged = tool->isForceEngaged();
 					if (isEngaged != lastForceEngagedState)
 					{
-						std::cout << "Force feedback engaged?: " << to_string(isEngaged) << std::endl;
+						std::cout << "Force feedback engaged?: " << std::to_string(isEngaged) << std::endl;
 					}
 					lastForceEngagedState = isEngaged;
 				}
@@ -266,7 +274,12 @@ namespace NeedleSimPlugin
 			simulationFinished = true;
 		}
 
-		void getProxyPosition(double outPosArray[])
+		int getNumHapticPoints()
+		{
+			return tool->getNumHapticPoints();
+		}
+
+		void getProxyPosition(double outPosArray[3])
 		{
 			if (simulationRunning)
 			{
@@ -283,7 +296,7 @@ namespace NeedleSimPlugin
 			}
 		}
 
-		void getDevicePosition(double outPosArray[])
+		void getDevicePosition(double outPosArray[3])
 		{
 			if (simulationRunning)
 			{
@@ -308,21 +321,22 @@ namespace NeedleSimPlugin
 				for (unsigned int i = 0; i < sz; i++)
 				{
 					try {
-					outPosArray[i][0] = tool->getHapticPoint(i)->getGlobalPosGoal().y();
-					outPosArray[i][1] = tool->getHapticPoint(i)->getGlobalPosGoal().z();
-					outPosArray[i][2] = -1.0 * tool->getHapticPoint(i)->getGlobalPosGoal().x();
+						// convert coordinate space
+						outPosArray[i][0] = tool->getHapticPoint(i)->getGlobalPosProxy().y();
+						outPosArray[i][1] = tool->getHapticPoint(i)->getGlobalPosProxy().z();
+						outPosArray[i][2] = -1.0 * tool->getHapticPoint(i)->getGlobalPosProxy().x();
 					}
-					catch (exception e)
+					catch (std::exception e)
 					{
-						PRINTWAIT("Something went wrong in GetProxyPositions?", 10000)
+						PRINTLNWAIT("Something went wrong in GetProxyPositions?", 10000)
 					}
 				}
 
 
-//#ifdef HAPTIC_DEBUG
-//				PRINTLN("Dev pos: " << tool->getDeviceGlobalPos() << "/ Prox pos: " << tool->m_hapticTip->getGlobalPosProxy());
-//				PRINTLN("Prox 0 at pos: " << cVector3d(outPosArray[0][0], outPosArray[0][1], outPosArray[0][2]));
-//#endif
+				//#ifdef HAPTIC_DEBUG
+				//				PRINTLN("Dev pos: " << tool->getDeviceGlobalPos() << "/ Prox pos: " << tool->m_hapticTip->getGlobalPosProxy());
+				//				PRINTLN("Prox 0 at pos: " << cVector3d(outPosArray[0][0], outPosArray[0][1], outPosArray[0][2]));
+				//#endif
 			}
 			else
 			{
@@ -337,13 +351,22 @@ namespace NeedleSimPlugin
 
 		bool isTouching(int objectId)
 		{
-			return tool->m_hapticTip->isInContact(world->getChild(objectId));
+			try
+			{
+				return tool->m_hapticTip->isInContact(world->getChild(objectId));
+			}
+			catch (std::exception e)
+			{
+				PRINTLNWAIT("Checked if touching a non-existant object", 1000);
+				return false;
+			}
 		}
 
 		bool isButtonPressed(int buttonId)
 		{
 			return tool->getUserSwitch(buttonId);
 		}
+
 
 		void setToolRadius(double a_toolRadius)
 		{
@@ -393,7 +416,7 @@ namespace NeedleSimPlugin
 			double maxStiffness = hapticDeviceInfo.m_maxLinearStiffness / workspaceScaleFactor;
 
 			// define a default stiffness for the object
-			object->m_material->setStiffness(0.3 * maxStiffness);
+			object->m_material->setStiffness(0.9 * maxStiffness);
 
 			// define some static friction
 			object->m_material->setStaticFriction(0.5);
@@ -423,9 +446,9 @@ namespace NeedleSimPlugin
 
 		void setObjectProperties(int objectID, double stiffness, double friction_static, double friction_dynamic, double viscosity, double penetrationForce)
 		{
-//#ifdef HAPTIC_DEBUG
-//			PRINTLN("object updated lol?");
-//#endif
+			//#ifdef HAPTIC_DEBUG
+			//			PRINTLN("object updated lol?");
+			//#endif
 
 			cGenericObject* object = world->getChild(objectID);
 
@@ -577,7 +600,7 @@ namespace NeedleSimPlugin
 		// Utils
 		//--------------------------------------------------------------------------
 
-		void convertXYZFromCHAI3D(double inputXYZ[])
+		void convertXYZFromCHAI3D(double inputXYZ[3])
 		{
 			double val0 = inputXYZ[0];
 			double val1 = inputXYZ[1];
@@ -588,7 +611,7 @@ namespace NeedleSimPlugin
 			inputXYZ[2] = -1.0 * val0;
 		}
 
-		 void convertXYZToCHAI3D(double inputXYZ[])
+		void convertXYZToCHAI3D(double inputXYZ[3])
 		{
 			double val0 = inputXYZ[0];
 			double val1 = inputXYZ[1];
@@ -598,213 +621,282 @@ namespace NeedleSimPlugin
 			inputXYZ[1] = val0;
 			inputXYZ[2] = val1;
 		}
+	} // extern ---------------------------------------------------------------------------------------------------------------//
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//-------------------------------------------------------------------------------------------------------------------------//
+	//-------------------------------------------------------------------------------------------------------------------------//
+	//	 __  __     ______     __         __         ______        __     __     ______     ______     __         _____
+	//	/\ \_\ \   /\  ___\   /\ \       /\ \       /\  __ \      /\ \  _ \ \   /\  __ \   /\  == \   /\ \       /\  __-.
+	//	\ \  __ \  \ \  __\   \ \ \____  \ \ \____  \ \ \/\ \     \ \ \/ ".\ \  \ \ \/\ \  \ \  __<   \ \ \____  \ \ \/\ \
+	//	 \ \_\ \_\  \ \_____\  \ \_____\  \ \_____\  \ \_____\     \ \__/".~\_\  \ \_____\  \ \_\ \_\  \ \_____\  \ \____-
+	//	  \/_/\/_/   \/_____/   \/_____/   \/_____/   \/_____/      \/_/   \/_/   \/_____/   \/_/ /_/   \/_____/   \/____/
+	//
+	//-------------------------------------------------------------------------------------------------------------------------//
+	//-------------------------------------------------------------------------------------------------------------------------//
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 
 		///////////////////////////////////////////
-		// Needle
+		// Axial Constraint
 		///////////////////////////////////////////
 
-		void Needle::computeInteractionForces()
+			// uses projection of position onto the plane on which AxialConstraint acts
+	cVector3d AxialConstraint::computeForce(const cVector3d& currentPosition, const double & deltaTime)
+	{
+		cVector3d positionProjected = currentPosition;
+		positionProjected = positionProjected.projectToPlane(m_direction);
+
+		m_controller.update(positionProjected, deltaTime);
+		cVector3d outputForce = m_controller.getOutput<cVector3d>().projectToPlane(m_direction);
+
+		outputForce.clamp(m_maxForce);
+
+		return outputForce;
+	}
+
+
+
+
+	///////////////////////////////////////////
+	// Needle
+	///////////////////////////////////////////
+
+	void Needle::computeInteractionForces()
+	{
+		// for each haptic point compute the interaction force
+		// and combine their overall contribution to compute the output force
+		// and torque to be sent to the haptic device
+
+		cVector3d interactionForce(0.0, 0.0, 0.0);
+		cVector3d globalTorque(0.0, 0.0, 0.0);
+
+		// determine pivot point for torque calculation 
+
+		cVector3d pivotPoint;
+		if (isPatientPenetrated())
 		{
-			// for each haptic point compute the interaction force
-			// and combine their overall contribution to compute the output force
-			// and torque to be sent to the haptic device
-
-			cVector3d interactionForce(0.0, 0.0, 0.0);
-			cVector3d globalTorque(0.0, 0.0, 0.0);
-
-			// determine pivot point for torque calculation 
-			
-			cVector3d pivotPoint;
-			if (isPatientPenetrated())
-			{
-				//(where the needle enters an object)
-				pivotPoint = axialConstraint.m_controller.getGoal<cVector3d>();
-			}
-			else
-			{
-				// if the needle is not inside something, then pivot about its centre of mass, approximated to the base of the needle)
-				pivotPoint = hapticPointPositions[m_hapticPoints.size() - 1];
-			}
-
-			// update haptic point positions
-			calculateHapticPointPositions();
-
-			// compute haptic mesh forces (solid object collision) based on multiple haptic points representing the whole needle shaft
-			cVector3d forceFromHapticMeshes(0.0, 0.0, 0.0);
-			unsigned int sz = m_hapticPoints.size();
-			for (unsigned i = 0; i < sz; i++)
-			{
-				// get next haptic point
-				cHapticPoint* nextContactPoint = m_hapticPoints[i];
-
-				// compute force at haptic point as well as new proxy position
-				forceFromHapticMeshes += nextContactPoint->computeInteractionForces(
-					hapticPointPositions[i],
-					m_deviceGlobalRot,
-					m_deviceGlobalLinVel,
-					m_deviceGlobalAngVel);
-
-				// calculate torque
-				cVector3d momentArm = pivotPoint - hapticPointPositions[i];
-				globalTorque.add(cCross(momentArm, forceFromHapticMeshes));
-			}
-
-			// combine force contributions together
-			interactionForce.add(forceFromHapticMeshes);
-
-
-			///
-
-			/// single haptic point force model
-			// compute interaction forces at haptic point in global coordinates
-			//cVector3d forceFromHapticMeshes = m_hapticTip->computeInteractionForces(m_deviceGlobalPos,
-			//	m_deviceGlobalRot,
-			//	m_deviceGlobalLinVel,
-			//	m_deviceGlobalAngVel);
-			//interactionForce += forceFromHapticMeshes;
-
-			cVector3d devicePos = m_hapticTip->m_algorithmFingerProxy->getDeviceGlobalPosition();
-
-			// forces keeping needle constrained to entry point
-			interactionForce += axialConstraint.computeForce(devicePos, deltaTime);
-
-			// forces of skin layers on needle tip
-			interactionForce += patient.computeForces(devicePos);
-
-			//apply an slight overall damping effect to (hopefully) reduce unwanted oscillations
-			interactionForce += computeDampingEffect(1.0);
-
-			// oscillation failsafe: stop applying forces if velocity is too high
-			// > 1m/s could be considered unsafe
-			if (tool->getDeviceGlobalLinVel().length() > 1.0)
-			{
-				interactionForce *= 0.0;
-				PRINTLN("oscillation failsafe activated!")
-			}
-
-			// generic damping
-			interactionForce -= tool->getDeviceGlobalLinVel() * 1.0;
-
-			// avoid trying to apply more force than possible
-			interactionForce.clamp(hapticDeviceInfo.m_maxLinearForce);
-
-			// smooth forces by blending between new output and last output
-			if (interactionForce.lengthsq() > 0.0001)
-			{
-				interactionForce = lerpd(m_lastForceApplied, interactionForce, 0.9);
-			}
-
-			setDeviceGlobalForce(interactionForce);
-			setDeviceGlobalTorque(globalTorque);
-			setGripperForce(0.0);
-			//if(globalTorque.lengthsq() > 0.0) PRINTLN("torque: " << globalTorque)
-
-			m_lastForceApplied = interactionForce;
+			//(where the needle enters an object)
+			pivotPoint = patient.m_entryPoint;//axialConstraint.m_controller.getGoal<cVector3d>();
+		}
+		else
+		{
+			// if the needle is not inside something, then pivot about its centre of mass, approximated to the middle the needle)
+			pivotPoint = hapticPointPositions[m_hapticPoints.size() / 2];
 		}
 
-		bool Needle::isForceEngaged()
+		// update haptic point positions
+		calculateHapticPointPositions();
+
+		// compute haptic mesh forces (solid object collision) based on multiple haptic points representing the whole needle shaft
+		cVector3d forceFromHapticMeshes(0.0, 0.0, 0.0);
+		unsigned int sz = m_hapticPoints.size();
+		for (unsigned i = 0; i < sz; i++)
 		{
-			return m_forceEngaged;
+			// get next haptic point
+			cHapticPoint* nextContactPoint = m_hapticPoints[i];
+
+			// compute force at haptic point as well as new proxy position
+			forceFromHapticMeshes += nextContactPoint->computeInteractionForces(
+				hapticPointPositions[i],
+				m_deviceGlobalRot,
+				m_deviceGlobalLinVel,
+				m_deviceGlobalAngVel);
+
+			// calculate torque
+			cVector3d momentArm = pivotPoint - hapticPointPositions[i];
+			globalTorque.add(cCross(momentArm, forceFromHapticMeshes));
 		}
 
-		void Needle::calculateHapticPointPositions()
+		// combine force contributions together
+		interactionForce.add(forceFromHapticMeshes);
+
+
+		///
+
+		/// single haptic point force model
+		// compute interaction forces at haptic point in global coordinates
+		//cVector3d forceFromHapticMeshes = m_hapticTip->computeInteractionForces(m_deviceGlobalPos,
+		//	m_deviceGlobalRot,
+		//	m_deviceGlobalLinVel,
+		//	m_deviceGlobalAngVel);
+		//interactionForce += forceFromHapticMeshes;
+
+		cVector3d devicePos = m_hapticTip->m_algorithmFingerProxy->getDeviceGlobalPosition();
+
+		// forces keeping needle constrained to entry point
+		interactionForce += axialConstraint.computeForce(devicePos, deltaTime);
+
+		// forces of skin layers on needle tip
+		interactionForce += patient.computeForces(devicePos);
+
+		//apply an slight overall damping effect to (hopefully) reduce unwanted oscillations
+		interactionForce += computeDampingEffect(1.0);
+
+		// oscillation failsafe: stop applying forces if velocity is too high
+		// > 1m/s could be considered unsafe
+		if (tool->getDeviceGlobalLinVel().length() > 1.0)
 		{
-			cVector3d needleShaftAxis;
-
-			// If device supports rotation, get data directly from device, otherwise must come from somewhere else
-			if (m_hapticDevice->m_specifications.m_sensedRotation)
-			{
-				// direction of rotation axis toward screen (x-axis)
-				needleShaftAxis = getGlobalRot().getCol0();
-			}
-			else
-			{
-				needleShaftAxis = axialConstraint.m_direction;
-			}
-
-			unsigned int sz = m_hapticPoints.size();
-			for (unsigned i = 0; i < sz; i++)
-			{
-				double offset = needleLength / sz * (double)i;
-				//PRINTLN(".....offset: " << offset)
-				//PRINTLN("needleShaftAxis" << needleShaftAxis)
-
-				// position of haptic point is based on offset along axis from tip
-				hapticPointPositions[i] = m_deviceGlobalPos - (needleShaftAxis * offset);
-			}
+			interactionForce *= 0.0;
+			PRINTLN("oscillation failsafe activated!")
 		}
 
-		inline cVector3d Needle::getHapticPointPosition(size_t index)
+		// generic damping
+		interactionForce -= tool->getDeviceGlobalLinVel() * 1.0;
+
+		// avoid trying to apply more force than possible
+		interactionForce.clamp(hapticDeviceInfo.m_maxLinearForce);
+
+		// smooth forces by blending between new output and last output
+		if (interactionForce.lengthsq() > 0.0001)
 		{
-			return hapticPointPositions.at(index);
+			interactionForce = lerpd(m_lastForceApplied, interactionForce, 0.9);
 		}
 
-		Needle::Needle(cWorld * a_parentWorld) : cGenericTool(a_parentWorld)
+		setDeviceGlobalForce(interactionForce);
+		setDeviceGlobalTorque(globalTorque);
+		setGripperForce(0.0);
+		//if(globalTorque.lengthsq() > 0.0) PRINTLN("torque: " << globalTorque)
+
+		m_lastForceApplied = interactionForce;
+	}
+
+	bool Needle::isForceEngaged()
+	{
+		return m_forceEngaged;
+	}
+
+	void Needle::calculateHapticPointPositions()
+	{
+		cVector3d needleShaftAxis;
+
+		// If device supports rotation, get data directly from device, otherwise must come from somewhere else
+		if (m_hapticDevice->m_specifications.m_sensedRotation)
 		{
-			hapticPointPositions.resize(1);
+			// direction of rotation axis toward screen (x-axis)
+			needleShaftAxis = getGlobalRot().getCol0();
+		}
+		else
+		{
+			needleShaftAxis = axialConstraint.m_direction;
+		}
 
-			needleLength = 0.0;
+		unsigned int sz = m_hapticPoints.size();
+		for (unsigned i = 0; i < sz; i++)
+		{
+			double offset = needleLength / sz * (double)i;
+			//PRINTLN(".....offset: " << offset)
+			//PRINTLN("needleShaftAxis" << needleShaftAxis)
 
+			// position of haptic point is based on offset along axis from tip
+			hapticPointPositions[i] = m_deviceGlobalPos - (needleShaftAxis * offset);
+		}
+	}
+
+	inline cVector3d Needle::getHapticPointPosition(size_t index)
+	{
+		return hapticPointPositions.at(index);
+	}
+
+	Needle::Needle(cWorld * a_parentWorld) : cGenericTool(a_parentWorld), hapticPointPositions(1)
+	{
+		needleLength = 0.0;
+
+		m_lastForceApplied = 0.0;
+
+		// initialize haptic interaction point
+		cHapticPoint* newPoint = new cHapticPoint(this);
+
+		// replace fingerproxy algorithm with custom version
+		delete newPoint->m_algorithmFingerProxy;
+		newPoint->m_algorithmFingerProxy = new AlgorithmFingerProxyPID();
+		//newPoint->m_algorithmFingerProxy = new AlgorithmFingerProxyNeedle(&patient);
+
+		m_hapticPoints.push_back(newPoint);
+
+		m_hapticTip = m_hapticPoints[0];
+	}
+
+	Needle::Needle(cWorld * a_parentWorld, double a_shaftLength, unsigned int a_numHapticPoints) : cGenericTool(a_parentWorld)
+	{
+#ifdef HAPTIC_DEBUG
+		PRINT("Needle: creating " << a_numHapticPoints << " haptic points...")
+#endif
 			m_lastForceApplied = 0.0;
+		needleLength = a_shaftLength;
 
-			// initialize haptic interaction point
+
+		// initialize haptic interaction points
+		for (unsigned int i = 0; i < a_numHapticPoints; i++)
+		{
 			cHapticPoint* newPoint = new cHapticPoint(this);
 
-			// replace fingerproxy algorithm with custom version
-			delete newPoint->m_algorithmFingerProxy;
-			newPoint->m_algorithmFingerProxy = new AlgorithmFingerProxyPID();
+			if (i == 0)
+			{
+				// replace fingerproxy algorithm with custom version
+				delete newPoint->m_algorithmFingerProxy;
+				newPoint->m_algorithmFingerProxy = new AlgorithmFingerProxyPID();
+			}
+
+			hapticPointPositions.push_back(cVector3d(0.0, 0.0, 0.0));
 
 			m_hapticPoints.push_back(newPoint);
-
-			m_hapticTip = m_hapticPoints[0];
+			//PRINTLN("number of hapticPoints: " << m_hapticPoints.size())
+			//PRINTLN("number of hapticPointPositions: " << hapticPointPositions.size())
 		}
 
-		Needle::Needle(cWorld * a_parentWorld, double a_shaftLength, unsigned int a_numHapticPoints) : cGenericTool(a_parentWorld)
-		{
-			m_lastForceApplied = 0.0;
-			needleLength = a_shaftLength;
-
-
-#ifdef _DEBUG
-			PRINTLN("creating" << a_numHapticPoints << " haptic points...")
+		m_hapticTip = m_hapticPoints[0];
+#ifdef HAPTIC_DEBUG
+		PRINTLN(" Done.")
 #endif
+	}
 
-			// initialize haptic interaction points
-			for (unsigned int i = 0; i < a_numHapticPoints; i++)
-			{
-				cHapticPoint* newPoint = new cHapticPoint(this);
-
-				//if (i == 0)
-				//{
-					// replace fingerproxy algorithm with custom version
-				//delete newPoint->m_algorithmFingerProxy;
-				//newPoint->m_algorithmFingerProxy = new AlgorithmFingerProxyPID();
-				//}
-			
-				hapticPointPositions.push_back(cVector3d(0.0, 0.0, 0.0));
-
-				m_hapticPoints.push_back(newPoint);
-				//PRINTLN("number of hapticPoints: " << m_hapticPoints.size())
-				//PRINTLN("number of hapticPointPositions: " << hapticPointPositions.size())
-			}
-
-			m_hapticTip = m_hapticPoints[0];
-		}
-
-		Needle::~Needle()
+	Needle::~Needle()
+	{
+		for (auto point : m_hapticPoints)
 		{
-			for (auto point : m_hapticPoints)
-			{
-				delete point;
-				point = nullptr;
-			}
-
-			m_hapticPoints.clear();
+			delete point;
+			point = nullptr;
 		}
 
-	} // extern 
+		m_hapticPoints.clear();
+	}
+
+
+
+
+
+
+
+	//--------------------------------------------------------------------------
+	// Internal utility functions
+	//--------------------------------------------------------------------------
 
 	inline cVector3d computeSpringForce(const cVector3d& position, cVector3d& springRestPosition, double& minDist, double& maxDist, double& maxForce)
 	{
@@ -819,30 +911,6 @@ namespace NeedleSimPlugin
 
 		return springForce;
 	}
-
-	inline double lmapd(const double& from, const double& fromMin, const double& fromMax, const double& toMin, const double& toMax)
-	{
-		double fromAbs = from - fromMin;
-		double fromMaxAbs = fromMax - fromMin;
-		double normal = fromAbs / fromMaxAbs;
-		double toMaxAbs = toMax - toMin;
-		double toAbs = toMaxAbs * normal;
-		double to = toAbs + toMin;
-		return to;
-	}
-
-
-	//cPenetrablePoint::cPenetrablePoint(cGenericTool * a_parentTool) : cHapticPoint(a_parentTool)
-	//{
-	//	// replace finger-proxy algorithm used for modelling contacts with 
-	//	// cMesh objects.
-	//	delete m_algorithmFingerProxy;
-	//	m_algorithmFingerProxy = new cAlgorithmFingerProxyPuncture();
-	//}
-	//
-	//cPenetrablePoint::~cPenetrablePoint()
-	//{
-	//}
 
 	inline cVector3d computeAxialConstraintForce(cVector3d position, cVector3d & targetPos, cVector3d & targetDir, double & minDist, double & maxDist, double & maxForce, double& kDamping)
 	{
@@ -862,6 +930,7 @@ namespace NeedleSimPlugin
 		springForce.clamp(maxForce);
 		return springForce;
 	}
+
 
 	inline cVector3d computeAxialSpringForce(cVector3d position, cVector3d & targetPos, cVector3d & targetDir, double & minDist, double & maxDist, double & maxForce, double & kDamping)
 	{
@@ -886,6 +955,21 @@ namespace NeedleSimPlugin
 	{
 		return -kDamping * tool->getDeviceGlobalLinVel();
 	}
+
+
+	inline chai3d::cVector3d lerpd(const chai3d::cVector3d & from, const chai3d::cVector3d & to, double tValue)
+	{
+		return (1.0 - tValue) * from + (tValue * to);
+	}
+
+
+
+
+	//--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
+	// Haptic Layers
+	//--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
 
 
 	HapticLayerContainer::HapticLayerContainer()
@@ -940,7 +1024,7 @@ namespace NeedleSimPlugin
 					if (penetrationDepth < layer->m_restingDepth)
 					{
 						//it is no longer penetrated.
-						m_lastLayerPenetrated = max(m_lastLayerPenetrated - 1, -1);
+						m_lastLayerPenetrated = std::max(m_lastLayerPenetrated - 1, -1);
 						layer->onExitLayer();
 
 						//PRINTLN("exited layer" << layerIdx)
@@ -1031,7 +1115,7 @@ namespace NeedleSimPlugin
 		// the layer is receiving pressure
 		if (displacement > 0.0)
 		{
-			outputForce = min(m_stiffness * std::pow(displacement, m_stiffnessExponent), m_penetrationThreshold);
+			outputForce = std::min(m_stiffness * std::pow(displacement, m_stiffnessExponent), m_penetrationThreshold);
 		}
 
 		return outputForce;
@@ -1049,11 +1133,11 @@ namespace NeedleSimPlugin
 		double direction = (displacement < 0.0) ? -1.0 : 1.0;
 
 		// the force was calculated with an absolute value. Reverse if needed.
-		double outputForce = min(absoluteForce, m_maxFrictionForce) * direction;
+		double outputForce = std::min(absoluteForce, m_maxFrictionForce) * direction;
 
 		// move the layer to meet the contact point
 		m_displacementPoint = lerp(m_displacementPoint, penetrationDepth - m_restingDepth,
-			min((deltaTime * m_malleability), 1.0));
+			std::min((deltaTime * m_malleability), 1.0));
 
 		return outputForce;
 	}
@@ -1074,19 +1158,12 @@ namespace NeedleSimPlugin
 	{
 	}
 
-	// uses projection of position onto the plane on which AxialConstraint acts
-	cVector3d AxialConstraint::computeForce(const cVector3d& currentPosition, const double & deltaTime)
-	{
-		cVector3d positionProjected = currentPosition;
-		positionProjected = positionProjected.projectToPlane(m_direction);
+	//--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
+	// Finger-Proxy Algorithms
+	//--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
 
-		m_controller.update(positionProjected, deltaTime);
-		cVector3d outputForce = m_controller.getOutput<cVector3d>().projectToPlane(m_direction);
-
-		outputForce.clamp(m_maxForce);
-
-		return outputForce;
-	}
 
 	AlgorithmFingerProxyPID::AlgorithmFingerProxyPID()
 	{
@@ -1136,6 +1213,68 @@ namespace NeedleSimPlugin
 			return (cVector3d(0.0, 0.0, 0.0));
 		}
 	}
-//------------------------------------------------------------------------------
+
+
+	////////////////////////////////////////////////
+	////////////////////////////////////////////////
+	////////////////////////////////////////////////
+	////////////////////////////////////////////////
+
+
+	AlgorithmFingerProxyNeedle::AlgorithmFingerProxyNeedle(HapticLayerContainer * patient) : mp_patient(patient)
+	{
+	}
+
+	cVector3d AlgorithmFingerProxyNeedle::computeForces(const cVector3d & a_toolPos, const cVector3d & a_toolVel)
+	{
+		// update device position
+		m_deviceGlobalPos = a_toolPos;
+
+		// check if world has been defined; if so, compute forces
+		if (m_world != NULL)
+		{
+			// compute next best position of proxy based on collisions
+			computeNextBestProxyPosition(m_deviceGlobalPos);
+
+			// project next best position onto needle axis 
+			// unique to AlgorithmFingerProxyNeedle needle, this prevents the force output from pushing the user away from the needle axis. Works in combination with AxialConstraint
+			if (isPatientPenetrated())
+			{
+				m_nextBestProxyGlobalPos = cProject(m_nextBestProxyGlobalPos, patient.m_entryDirection);
+
+				// update proxy to next best position
+				m_proxyGlobalPos = m_nextBestProxyGlobalPos + patient.m_entryPoint;
+			}
+
+			// compute force vector applied to device
+			updateForce();
+
+			// if no force, reset PID state
+			if (m_lastGlobalForce.lengthsq() == 0.0)
+			{
+				m_PID.reset<cVector3d>();
+			}
+
+			// calculate PID output
+			m_PID.setGoal(m_nextBestProxyGlobalPos);
+			m_PID.update(m_deviceGlobalPos, 0.001);
+
+			// augment force output with PID output
+			m_lastGlobalForce *= m_PID.m_kp;
+			m_lastGlobalForce += m_PID.getIntegralOutput<cVector3d>() + m_PID.getDerivativeOutput<cVector3d>();
+			m_lastGlobalForce *= m_PID.m_gain;
+
+			// return result
+			return (m_lastGlobalForce);
+		}
+
+		// if no world has been defined in which algorithm operates, there is no force
+		else
+		{
+			return (cVector3d(0.0, 0.0, 0.0));
+		}
+	}
+
+	//------------------------------------------------------------------------------
 } // namespace NeedleSimPlugin
 //------------------------------------------------------------------------------

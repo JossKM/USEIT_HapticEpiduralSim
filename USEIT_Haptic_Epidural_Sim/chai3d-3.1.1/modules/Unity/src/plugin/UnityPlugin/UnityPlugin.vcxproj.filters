@@ -14,12 +14,27 @@
     <ClCompile Include="UnityCHAI3DPlugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mathUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HapticLayers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnityCHAI3DPlugin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PIDController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mathUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HapticLayers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

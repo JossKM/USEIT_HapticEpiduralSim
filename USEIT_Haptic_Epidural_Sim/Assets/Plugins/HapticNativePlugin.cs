@@ -296,4 +296,7 @@ public class HapticNativePlugin
 	[DllImport("UnityPlugin")]
 	public static extern void setNeedlePID(double kp, double ki, double kd, double gain);
 
+    [DllImport("UnityPlugin")]
+    public static extern int getNumHapticPoints();
+
 }

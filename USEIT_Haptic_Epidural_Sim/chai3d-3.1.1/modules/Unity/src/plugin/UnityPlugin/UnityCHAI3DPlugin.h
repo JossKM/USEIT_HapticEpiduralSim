@@ -8,14 +8,8 @@
 
 namespace NeedleSimPlugin
 {
-	//class cPenetrablePoint : public cHapticPoint
-	//{
-	//	cAlgorithmFingerProxyPuncture
-	//
-	//	cPenetrablePoint(cGenericTool* a_parentTool);
-	//	virtual ~cPenetrablePoint();
-	//};
 
+	class HapticLayerContainer;
 
 	// custom AlgorithmFingerProxy meant to reduce oscillations
 	class AlgorithmFingerProxyPID : public cAlgorithmFingerProxy
@@ -27,13 +21,30 @@ namespace NeedleSimPlugin
 			//! Destructor
 			virtual ~AlgorithmFingerProxyPID() {}
 
-
-			cVector3d computeForces(const cVector3d& a_toolPos,
+			virtual cVector3d computeForces(const cVector3d& a_toolPos,
 				const cVector3d& a_toolVel) override;
 
 			PIDController<cVector3d> m_PID;
 			double m_dt;
 	};
+
+	class AlgorithmFingerProxyNeedle : public AlgorithmFingerProxyPID
+	{
+	public:
+		//! Constructor
+		AlgorithmFingerProxyNeedle(HapticLayerContainer* patient);
+
+		//! Destructor
+		virtual ~AlgorithmFingerProxyNeedle() {}
+
+		cVector3d computeForces(const cVector3d& a_toolPos,
+			const cVector3d& a_toolVel) override;
+
+		HapticLayerContainer* mp_patient;
+	};
+
+
+
 
 	extern "C"
 	{
@@ -67,7 +78,7 @@ namespace NeedleSimPlugin
 			// caps at penetration threshold; will not output any higher than that
 			double computeTensionForce(const double& displacement);
 
-			// force applied after penetration. implements a mass-spring model where the contact point can move
+			// force applied after penetration. implements a moving spring model where the contact point can move
 			double computeFrictionForce(const double& displacement);
 
 			// the resting depth of the layer, relative to the entry point of the needle
@@ -237,9 +248,9 @@ namespace NeedleSimPlugin
 
 
 		/////// utilities ///
-
-		FUNCDLL_API void getProxyPosition(double outPosArray[]);
-		FUNCDLL_API void getDevicePosition(double outPosArray[]);
+		FUNCDLL_API int getNumHapticPoints();
+		FUNCDLL_API void getProxyPosition(double outPosArray[3]);
+		FUNCDLL_API void getDevicePosition(double outPosArray[3]);
 		// returns an array of positions, each position being a fixed array
 		FUNCDLL_API void getAllProxyPositions(double outPosArray[][3]);
 
@@ -249,42 +260,10 @@ namespace NeedleSimPlugin
 		FUNCDLL_API bool isButtonPressed(int buttonId);
 
 		// Like Unity, Chai3D uses a right handed coordinate system, but -z x y
-		FUNCDLL_API void convertXYZFromCHAI3D(double inputXYZ[]);
-		FUNCDLL_API void convertXYZToCHAI3D(double inputXYZ[]);
+		FUNCDLL_API void convertXYZFromCHAI3D(double inputXYZ[3]);
+		FUNCDLL_API void convertXYZToCHAI3D(double inputXYZ[3]);
 	}
 
-	inline double lmapd(const double& from, const double& fromMin, const double& fromMax, const double& toMin, const double& toMax);
-
-	template<typename T, typename R>
-	inline R lmap(const T& from, const T& fromMin, const T& fromMax, const R& toMin, const R& toMax)
-	{
-		T fromAbs = from - fromMin;
-		T fromMaxAbs = fromMax - fromMin;
-		double normal = fromAbs / fromMaxAbs;
-		R toMaxAbs = toMax - toMin;
-		R toAbs = toMaxAbs * normal;
-		R to = toAbs + toMin;
-		return to;
-	}
-
-
-	template<typename T, typename R>
-	inline R lerp(T from, T to, double tValue)
-	{
-		return (1.0 - tValue) * from + (tValue * to);
-	}
-
-	template<typename T>
-	inline T lerp(T from, T to, double tValue)
-	{
-		return (1.0 - tValue) * from + (tValue * to);
-	}
-
-	inline cVector3d lerpd(const cVector3d& from, const cVector3d& to, double tValue)
-	{
-		return (1.0 - tValue) * from + (tValue * to);
-	}
-	
 	// simulates a spring
 	inline cVector3d computeSpringForce(const cVector3d& position, cVector3d& targetPos, double& minDist, double& maxDist, double& maxForce);
 
@@ -296,4 +275,6 @@ namespace NeedleSimPlugin
 
 	// applies speed damping effect
 	inline cVector3d computeDampingEffect(const double& kDamping);
+
+	inline chai3d::cVector3d lerpd(const chai3d::cVector3d& from, const chai3d::cVector3d& to, double tValue);
 }

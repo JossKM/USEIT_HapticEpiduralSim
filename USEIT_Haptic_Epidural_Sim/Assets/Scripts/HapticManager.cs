@@ -41,7 +41,7 @@ public class HapticManager : MonoBehaviour
             Debug.Log("Haptic Manager starting simulation...");
 
            hapticOrigin = GameObject.Find("Haptic Origin").transform;
-
+            
             isHapticAvail = HapticNativePlugin.prepareHaptics(worldScale);
 
             if (workspaceVisualizer != null)
@@ -89,7 +89,7 @@ public class HapticManager : MonoBehaviour
                 devicePositionGameObject.transform.localScale = new Vector3((float)toolRadius, (float)toolRadius, (float)toolRadius) * 2.0f;
             }
 
-            Vector3[] positions = HapticNativePlugin.GetAllProxyPositions(numHapticPoints);
+            Vector3[] positions = HapticNativePlugin.GetAllProxyPositions((uint)HapticNativePlugin.getNumHapticPoints());
             //transform.localPosition = positions[0];
             for (int i = 0; i < numHapticPoints; i++)
             {

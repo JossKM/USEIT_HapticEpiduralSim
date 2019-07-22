@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: 4c80ede0f5905f04aa176a03c37094c1
   - enabled: 0
@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Saran VRPN.unity
     guid: ac05ff5048cf4bd4aae5740fb277ba24
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MatthewVRPN.unity
     guid: 11b8ad172214af546a782263b1b77ee8
   m_configObjects: {}

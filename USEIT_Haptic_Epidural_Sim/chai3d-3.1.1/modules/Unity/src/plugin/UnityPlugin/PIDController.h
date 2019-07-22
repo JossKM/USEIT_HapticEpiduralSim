@@ -95,7 +95,7 @@ public:
 
 		// derivative 
 		// smoothes changes in error
-		m_derivative = (m_deltaError / max(a_deltaTime, DBL_EPSILON));
+		m_derivative = (m_deltaError / std::max(a_deltaTime, DBL_EPSILON));
 		m_output += m_derivative * m_kd;
 
 		//#ifdef _DEBUG
