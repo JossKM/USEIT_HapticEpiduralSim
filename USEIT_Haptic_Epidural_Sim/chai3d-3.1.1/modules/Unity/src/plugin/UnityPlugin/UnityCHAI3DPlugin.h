@@ -146,6 +146,8 @@ namespace NeedleSimPlugin
 			int m_numLayersInUse;
 		
 			bool m_enabled;
+
+			bool isPenetrated();
 		};
 
 		//Custom simulation tool
@@ -248,6 +250,7 @@ namespace NeedleSimPlugin
 
 
 		/////// utilities ///
+		FUNCDLL_API bool isSimulationRunning();
 		FUNCDLL_API int getNumHapticPoints();
 		FUNCDLL_API void getProxyPosition(double outPosArray[3]);
 		FUNCDLL_API void getDevicePosition(double outPosArray[3]);

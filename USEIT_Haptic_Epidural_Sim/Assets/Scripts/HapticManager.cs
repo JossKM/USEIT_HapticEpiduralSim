@@ -75,8 +75,7 @@ public class HapticManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (isHapticAvail)
-            HapticNativePlugin.stopHaptics();
+        HapticNativePlugin.stopHaptics();
     }
 
     private void Update()

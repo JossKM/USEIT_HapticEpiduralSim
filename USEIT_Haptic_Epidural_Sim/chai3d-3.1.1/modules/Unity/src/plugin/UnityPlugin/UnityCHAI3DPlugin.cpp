@@ -70,8 +70,8 @@ namespace NeedleSimPlugin
 
 
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -82,6 +82,7 @@ namespace NeedleSimPlugin
 			AllocConsole();
 			freopen_s(&pConsole, "CONOUT$", "wb", stdout);
 #endif
+			PRINTLN("Preparing Haptics...");
 
 			//--------------------------------------------------------------------------
 			// WORLD
@@ -101,7 +102,10 @@ namespace NeedleSimPlugin
 
 			// get access to the first available haptic device
 			if (!handler->getDevice(*hapticDevice, 0))
+			{
+				PRINTLN("No Haptic Device Found! <(X.X)>");
 				return false;
+			}
 
 			// retrieve information about the current haptic device
 			hapticDeviceInfo = (*hapticDevice)->getSpecifications();
@@ -272,6 +276,11 @@ namespace NeedleSimPlugin
 
 			// exit haptics thread
 			simulationFinished = true;
+		}
+
+		bool isSimulationRunning()
+		{
+			return simulationRunning;
 		}
 
 		int getNumHapticPoints()
@@ -535,7 +544,12 @@ namespace NeedleSimPlugin
 		{
 			for (int i = 0; i < tool->getNumHapticPoints(); i++)
 			{
-				((AlgorithmFingerProxyPID*)(tool->getHapticPoint(i)->m_algorithmFingerProxy))->m_PID.configure(kp, ki, kd, gain);
+				AlgorithmFingerProxyPID* algo = (AlgorithmFingerProxyPID*)(tool->getHapticPoint(i)->m_algorithmFingerProxy);
+				if (algo != nullptr)
+				{
+					algo->m_PID.configure(kp, ki, kd, gain);
+				}
+
 			}
 		}
 
@@ -572,7 +586,7 @@ namespace NeedleSimPlugin
 
 		bool isPatientPenetrated()
 		{
-			return patient.m_lastLayerPenetrated > -1;
+			return patient.isPenetrated();
 		}
 
 		int getLastLayerPenetrated()
@@ -833,10 +847,26 @@ namespace NeedleSimPlugin
 		// initialize haptic interaction point
 		cHapticPoint* newPoint = new cHapticPoint(this);
 
+
+
+
+
+		//////////////////////
 		// replace fingerproxy algorithm with custom version
 		delete newPoint->m_algorithmFingerProxy;
-		newPoint->m_algorithmFingerProxy = new AlgorithmFingerProxyPID();
-		//newPoint->m_algorithmFingerProxy = new AlgorithmFingerProxyNeedle(&patient);
+
+		// create and initialize replacement algorithm
+		auto algo = new AlgorithmFingerProxyPID();
+		//auto algo = new AlgorithmFingerProxyNeedle(&patient);
+		algo->initialize(a_parentWorld, getDeviceGlobalPos());
+
+		newPoint->m_algorithmFingerProxy = algo;
+		//////////////////////
+
+
+
+
+
 
 		m_hapticPoints.push_back(newPoint);
 
@@ -856,19 +886,29 @@ namespace NeedleSimPlugin
 		for (unsigned int i = 0; i < a_numHapticPoints; i++)
 		{
 			cHapticPoint* newPoint = new cHapticPoint(this);
+			
 
-			if (i == 0)
-			{
-				// replace fingerproxy algorithm with custom version
-				delete newPoint->m_algorithmFingerProxy;
-				newPoint->m_algorithmFingerProxy = new AlgorithmFingerProxyPID();
-			}
 
-			hapticPointPositions.push_back(cVector3d(0.0, 0.0, 0.0));
+
+			//////////////////////
+			// replace fingerproxy algorithm with custom version
+			delete newPoint->m_algorithmFingerProxy;
+
+			// create and initialize replacement algorithm
+			auto algo = new AlgorithmFingerProxyPID();
+			//auto algo = new AlgorithmFingerProxyNeedle(&patient);
+			algo->initialize(a_parentWorld, getDeviceGlobalPos());
+			
+			newPoint->m_algorithmFingerProxy = algo;
+			//////////////////////
+
+
+
+
 
 			m_hapticPoints.push_back(newPoint);
-			//PRINTLN("number of hapticPoints: " << m_hapticPoints.size())
-			//PRINTLN("number of hapticPointPositions: " << hapticPointPositions.size())
+
+			hapticPointPositions.push_back(cVector3d(0.0, 0.0, 0.0));
 		}
 
 		m_hapticTip = m_hapticPoints[0];
@@ -1088,6 +1128,11 @@ namespace NeedleSimPlugin
 		}
 	}
 
+	bool HapticLayerContainer::isPenetrated()
+	{
+		return m_lastLayerPenetrated > -1;
+	}
+
 	HapticLayer::HapticLayer(const double & a_stiffness, const double & a_stiffnessExponent, const double & a_maxFrictionForce, const double & a_penetrationThreshold, const double& a_resistanceToMovement, const double & a_depth) :
 		m_stiffness(a_stiffness),
 		m_stiffnessExponent(a_stiffnessExponent),
@@ -1238,12 +1283,12 @@ namespace NeedleSimPlugin
 
 			// project next best position onto needle axis 
 			// unique to AlgorithmFingerProxyNeedle needle, this prevents the force output from pushing the user away from the needle axis. Works in combination with AxialConstraint
-			if (isPatientPenetrated())
+			if (mp_patient->isPenetrated())
 			{
-				m_nextBestProxyGlobalPos = cProject(m_nextBestProxyGlobalPos, patient.m_entryDirection);
+				m_nextBestProxyGlobalPos = cProject(m_nextBestProxyGlobalPos, mp_patient->m_entryDirection);
 
 				// update proxy to next best position
-				m_proxyGlobalPos = m_nextBestProxyGlobalPos + patient.m_entryPoint;
+				m_proxyGlobalPos = m_nextBestProxyGlobalPos + mp_patient->m_entryPoint;
 			}
 
 			// compute force vector applied to device

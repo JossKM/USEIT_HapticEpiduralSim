@@ -19,12 +19,12 @@ public class HapticNativePlugin
     }
 
     [DllImport("UnityPlugin")]
-    protected static extern void getAllProxyPositions(double[,] array);
+    protected static extern void getAllProxyPositions(double[,] array, int size);
 
     public static Vector3[] GetAllProxyPositions(uint size)
     {
         double[,] arrayToUse = new double[size,3];
-        getAllProxyPositions(arrayToUse);
+        getAllProxyPositions(arrayToUse, (int)size);
 
         Vector3[] ret = new Vector3[size];
         for(uint i = 0; i < size; i++)
@@ -190,6 +190,7 @@ public class HapticNativePlugin
 
     public static void SetHapticEntryPoint(Vector3 anchorPosition, Vector3 anchorDirection)
     {
+        
         double[] anchorPos = new double[3];
         double[] anchorDir = new double[3];
         anchorPos[0] = (double)(anchorPosition.x);
@@ -243,6 +244,9 @@ public class HapticNativePlugin
 
     [DllImport("UnityPlugin")]
     public static extern bool prepareHaptics(double hapticScale);
+
+    [DllImport("UnityPlugin")]
+    public static extern bool isSimulationRunning();
 
     [DllImport("UnityPlugin")]
     public static extern void startHaptics();

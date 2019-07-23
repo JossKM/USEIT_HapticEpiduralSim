@@ -10,4 +10,5 @@
 #else
 #define PRINTLN(x) ; 
 #define PRINTWAIT(x, time) ;
+#define PRINTLNWAIT(x, time) ;
 #endif

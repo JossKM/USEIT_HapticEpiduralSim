@@ -113,7 +113,7 @@ public class MPU6050Orienter : MonoBehaviour
 
 	void OnDestroy()
 	{
-        if(stream.IsOpen)
+        if(stream != null && stream.IsOpen)
         {
 		    stream.Close();
         }
