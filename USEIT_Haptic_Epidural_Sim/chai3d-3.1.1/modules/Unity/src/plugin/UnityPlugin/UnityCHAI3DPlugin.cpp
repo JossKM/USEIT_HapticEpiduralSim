@@ -111,7 +111,7 @@ namespace NeedleSimPlugin
 			hapticDeviceInfo = (*hapticDevice)->getSpecifications();
 
 			// create a 3D tool and add it to the world
-			tool = new Needle(world, 0.1, 20);
+			tool = new Needle(world, 0.05, 20);
 			world->addChild(tool);
 
 			// connect the haptic device to the tool
@@ -331,8 +331,8 @@ namespace NeedleSimPlugin
 				{
 					try {
 						// convert coordinate space
-						outPosArray[i][0] = tool->getHapticPoint(i)->getGlobalPosProxy().y();
-						outPosArray[i][1] = tool->getHapticPoint(i)->getGlobalPosProxy().z();
+						outPosArray[i][0] =			tool->getHapticPoint(i)->getGlobalPosProxy().y();
+						outPosArray[i][1] =			tool->getHapticPoint(i)->getGlobalPosProxy().z();
 						outPosArray[i][2] = -1.0 * tool->getHapticPoint(i)->getGlobalPosProxy().x();
 					}
 					catch (std::exception e)
@@ -544,7 +544,9 @@ namespace NeedleSimPlugin
 		{
 			for (int i = 0; i < tool->getNumHapticPoints(); i++)
 			{
+				
 				AlgorithmFingerProxyPID* algo = (AlgorithmFingerProxyPID*)(tool->getHapticPoint(i)->m_algorithmFingerProxy);
+				
 				if (algo != nullptr)
 				{
 					algo->m_PID.configure(kp, ki, kd, gain);
@@ -711,10 +713,13 @@ namespace NeedleSimPlugin
 		cVector3d interactionForce(0.0, 0.0, 0.0);
 		cVector3d globalTorque(0.0, 0.0, 0.0);
 
+
+
+
 		// determine pivot point for torque calculation 
 
 		cVector3d pivotPoint;
-		if (isPatientPenetrated())
+		if (patient.isPenetrated())
 		{
 			//(where the needle enters an object)
 			pivotPoint = patient.m_entryPoint;//axialConstraint.m_controller.getGoal<cVector3d>();
@@ -722,45 +727,55 @@ namespace NeedleSimPlugin
 		else
 		{
 			// if the needle is not inside something, then pivot about its centre of mass, approximated to the middle the needle)
-			pivotPoint = hapticPointPositions[m_hapticPoints.size() / 2];
+			pivotPoint = m_hapticPoints[m_hapticPoints.size() / 2]->getGlobalPosProxy();
 		}
 
-		// update haptic point positions
-		calculateHapticPointPositions();
-
 		// compute haptic mesh forces (solid object collision) based on multiple haptic points representing the whole needle shaft
-		cVector3d forceFromHapticMeshes(0.0, 0.0, 0.0);
+
+		cVector3d needleShaftAxis;
+
+		// If device supports rotation, get data directly from device, otherwise must come from somewhere else
+		if (m_hapticDevice->m_specifications.m_sensedRotation)
+		{
+			// direction of rotation axis toward screen (x-axis)
+			needleShaftAxis = getGlobalRot().getCol0();
+		}
+		else
+		{
+			//PRINTLN("no rot sens")
+			needleShaftAxis = axialConstraint.m_direction;
+		}
+
 		unsigned int sz = m_hapticPoints.size();
 		for (unsigned i = 0; i < sz; i++)
 		{
+			double needlePointOffset = (needleLength / sz) * (double)i;
+			cVector3d pointPositionOnNeedle = m_deviceGlobalPos - (needleShaftAxis * needlePointOffset);
+
 			// get next haptic point
 			cHapticPoint* nextContactPoint = m_hapticPoints[i];
 
 			// compute force at haptic point as well as new proxy position
-			forceFromHapticMeshes += nextContactPoint->computeInteractionForces(
-				hapticPointPositions[i],
+			cVector3d forceFromHapticMeshes = nextContactPoint->computeInteractionForces(
+				pointPositionOnNeedle,
 				m_deviceGlobalRot,
 				m_deviceGlobalLinVel,
 				m_deviceGlobalAngVel);
 
+			// combine force contributions together
+			interactionForce.add(forceFromHapticMeshes);
+
 			// calculate torque
-			cVector3d momentArm = pivotPoint - hapticPointPositions[i];
+			cVector3d momentArm = pivotPoint - pointPositionOnNeedle;
 			globalTorque.add(cCross(momentArm, forceFromHapticMeshes));
 		}
 
-		// combine force contributions together
-		interactionForce.add(forceFromHapticMeshes);
 
 
-		///
 
-		/// single haptic point force model
-		// compute interaction forces at haptic point in global coordinates
-		//cVector3d forceFromHapticMeshes = m_hapticTip->computeInteractionForces(m_deviceGlobalPos,
-		//	m_deviceGlobalRot,
-		//	m_deviceGlobalLinVel,
-		//	m_deviceGlobalAngVel);
-		//interactionForce += forceFromHapticMeshes;
+
+
+
 
 		cVector3d devicePos = m_hapticTip->m_algorithmFingerProxy->getDeviceGlobalPosition();
 
@@ -806,39 +821,39 @@ namespace NeedleSimPlugin
 		return m_forceEngaged;
 	}
 
-	void Needle::calculateHapticPointPositions()
-	{
-		cVector3d needleShaftAxis;
-
-		// If device supports rotation, get data directly from device, otherwise must come from somewhere else
-		if (m_hapticDevice->m_specifications.m_sensedRotation)
-		{
-			// direction of rotation axis toward screen (x-axis)
-			needleShaftAxis = getGlobalRot().getCol0();
-		}
-		else
-		{
-			needleShaftAxis = axialConstraint.m_direction;
-		}
-
-		unsigned int sz = m_hapticPoints.size();
-		for (unsigned i = 0; i < sz; i++)
-		{
-			double offset = needleLength / sz * (double)i;
-			//PRINTLN(".....offset: " << offset)
-			//PRINTLN("needleShaftAxis" << needleShaftAxis)
-
-			// position of haptic point is based on offset along axis from tip
-			hapticPointPositions[i] = m_deviceGlobalPos - (needleShaftAxis * offset);
-		}
-	}
+	//void Needle::calculateHapticPointPositions()
+	//{
+	//	cVector3d needleShaftAxis;
+	//
+	//	// If device supports rotation, get data directly from device, otherwise must come from somewhere else
+	//	if (m_hapticDevice->m_specifications.m_sensedRotation)
+	//	{
+	//		// direction of rotation axis toward screen (x-axis)
+	//		needleShaftAxis = getGlobalRot().getCol0();
+	//	}
+	//	else
+	//	{
+	//		needleShaftAxis = axialConstraint.m_direction;
+	//	}
+	//
+	//	unsigned int sz = m_hapticPoints.size();
+	//	for (unsigned i = 0; i < sz; i++)
+	//	{
+	//		double offset = needleLength / sz * (double)i;
+	//		//PRINTLN(".....offset: " << offset)
+	//		//PRINTLN("needleShaftAxis" << needleShaftAxis)
+	//
+	//		// position of haptic point is based on offset along axis from tip
+	//		hapticPointPositions[i] = m_deviceGlobalPos - (needleShaftAxis * offset);
+	//	}
+	//}
 
 	inline cVector3d Needle::getHapticPointPosition(size_t index)
 	{
-		return hapticPointPositions.at(index);
+		return m_hapticPoints.at(index)->getGlobalPosGoal();
 	}
 
-	Needle::Needle(cWorld * a_parentWorld) : cGenericTool(a_parentWorld), hapticPointPositions(1)
+	Needle::Needle(cWorld * a_parentWorld) : cGenericTool(a_parentWorld)
 	{
 		needleLength = 0.0;
 
@@ -857,7 +872,7 @@ namespace NeedleSimPlugin
 
 		// create and initialize replacement algorithm
 		auto algo = new AlgorithmFingerProxyPID();
-		//auto algo = new AlgorithmFingerProxyNeedle(&patient);
+		//auto algo = new AlgorithmFingerProxyNeedle(&patient, &axialConstraint);
 		algo->initialize(a_parentWorld, getDeviceGlobalPos());
 
 		newPoint->m_algorithmFingerProxy = algo;
@@ -893,10 +908,10 @@ namespace NeedleSimPlugin
 			//////////////////////
 			// replace fingerproxy algorithm with custom version
 			delete newPoint->m_algorithmFingerProxy;
-
+			
 			// create and initialize replacement algorithm
-			auto algo = new AlgorithmFingerProxyPID();
-			//auto algo = new AlgorithmFingerProxyNeedle(&patient);
+			//auto algo = new AlgorithmFingerProxyPID();
+			auto algo = new AlgorithmFingerProxyNeedle(&patient, &axialConstraint);
 			algo->initialize(a_parentWorld, getDeviceGlobalPos());
 			
 			newPoint->m_algorithmFingerProxy = algo;
@@ -904,11 +919,7 @@ namespace NeedleSimPlugin
 
 
 
-
-
 			m_hapticPoints.push_back(newPoint);
-
-			hapticPointPositions.push_back(cVector3d(0.0, 0.0, 0.0));
 		}
 
 		m_hapticTip = m_hapticPoints[0];
@@ -1212,7 +1223,6 @@ namespace NeedleSimPlugin
 
 	AlgorithmFingerProxyPID::AlgorithmFingerProxyPID()
 	{
-
 	}
 
 	cVector3d AlgorithmFingerProxyPID::computeForces(const cVector3d & a_toolPos, const cVector3d & a_toolVel)
@@ -1266,7 +1276,7 @@ namespace NeedleSimPlugin
 	////////////////////////////////////////////////
 
 
-	AlgorithmFingerProxyNeedle::AlgorithmFingerProxyNeedle(HapticLayerContainer * patient) : mp_patient(patient)
+	AlgorithmFingerProxyNeedle::AlgorithmFingerProxyNeedle(HapticLayerContainer * patient, AxialConstraint* axialConstraint): mp_patient(patient), mp_axialConstraint(axialConstraint)
 	{
 	}
 
@@ -1281,17 +1291,21 @@ namespace NeedleSimPlugin
 			// compute next best position of proxy based on collisions
 			computeNextBestProxyPosition(m_deviceGlobalPos);
 
-			// project next best position onto needle axis 
+			// project next best position onto needle axis
 			// unique to AlgorithmFingerProxyNeedle needle, this prevents the force output from pushing the user away from the needle axis. Works in combination with AxialConstraint
 			if (mp_patient->isPenetrated())
 			{
-				m_nextBestProxyGlobalPos = cProject(m_nextBestProxyGlobalPos, mp_patient->m_entryDirection);
+				// project next best pos onto entry direction vector in space relative to entry point
+				m_nextBestProxyGlobalPos = cProject(m_nextBestProxyGlobalPos - mp_patient->m_entryPoint, mp_axialConstraint->m_direction);
 
-				// update proxy to next best position
-				m_proxyGlobalPos = m_nextBestProxyGlobalPos + mp_patient->m_entryPoint;
+				//add the entry point position back again to place it relative to the haptic origin
+				m_nextBestProxyGlobalPos += mp_patient->m_entryPoint;
+
+				// update proxy to next best position 
+				m_proxyGlobalPos = m_nextBestProxyGlobalPos;
 			}
 
-			// compute force vector applied to device
+			// compute force vector applied to device based on proxy position and device position
 			updateForce();
 
 			// if no force, reset PID state

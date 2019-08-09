@@ -8,7 +8,7 @@
 
 namespace NeedleSimPlugin
 {
-
+	class AxialConstraint;
 	class HapticLayerContainer;
 
 	// custom AlgorithmFingerProxy meant to reduce oscillations
@@ -32,7 +32,7 @@ namespace NeedleSimPlugin
 	{
 	public:
 		//! Constructor
-		AlgorithmFingerProxyNeedle(HapticLayerContainer* patient);
+		AlgorithmFingerProxyNeedle(HapticLayerContainer* patient, AxialConstraint* axialConstraint);
 
 		//! Destructor
 		virtual ~AlgorithmFingerProxyNeedle() {}
@@ -41,6 +41,8 @@ namespace NeedleSimPlugin
 			const cVector3d& a_toolVel) override;
 
 		HapticLayerContainer* mp_patient;
+
+		AxialConstraint* mp_axialConstraint;
 	};
 
 
@@ -156,10 +158,10 @@ namespace NeedleSimPlugin
 		private:
 			double needleLength;
 
-			std::vector<cVector3d>hapticPointPositions;
+			//std::vector<cVector3d>hapticPointPositions;
 
 			// recalculate position of haptic points based on offset along axis from tip
-			inline void calculateHapticPointPositions();
+			//inline void calculateHapticPointPositions();
 
 		public:
 			Needle(cWorld* a_parentWorld);
