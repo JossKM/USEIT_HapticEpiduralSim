@@ -111,7 +111,7 @@ namespace NeedleSimPlugin
 			hapticDeviceInfo = (*hapticDevice)->getSpecifications();
 
 			// create a 3D tool and add it to the world
-			tool = new Needle(world, 0.05, 20);
+			tool = new Needle(world, 0.05, 1);
 			world->addChild(tool);
 
 			// connect the haptic device to the tool
@@ -1278,6 +1278,9 @@ namespace NeedleSimPlugin
 
 	AlgorithmFingerProxyNeedle::AlgorithmFingerProxyNeedle(HapticLayerContainer * patient, AxialConstraint* axialConstraint): mp_patient(patient), mp_axialConstraint(axialConstraint)
 	{
+		// set m_collisionSettings.m_adjustObjectMotion to true if the patient ever moves
+		m_collisionSettings.m_adjustObjectMotion = false;
+
 	}
 
 	cVector3d AlgorithmFingerProxyNeedle::computeForces(const cVector3d & a_toolPos, const cVector3d & a_toolVel)
@@ -1291,19 +1294,19 @@ namespace NeedleSimPlugin
 			// compute next best position of proxy based on collisions
 			computeNextBestProxyPosition(m_deviceGlobalPos);
 
-			// project next best position onto needle axis
-			// unique to AlgorithmFingerProxyNeedle needle, this prevents the force output from pushing the user away from the needle axis. Works in combination with AxialConstraint
-			if (mp_patient->isPenetrated())
-			{
-				// project next best pos onto entry direction vector in space relative to entry point
-				m_nextBestProxyGlobalPos = cProject(m_nextBestProxyGlobalPos - mp_patient->m_entryPoint, mp_axialConstraint->m_direction);
-
-				//add the entry point position back again to place it relative to the haptic origin
-				m_nextBestProxyGlobalPos += mp_patient->m_entryPoint;
-
-				// update proxy to next best position 
-				m_proxyGlobalPos = m_nextBestProxyGlobalPos;
-			}
+			//// project next best position onto needle axis
+			//// unique to AlgorithmFingerProxyNeedle needle, this prevents the force output from pushing the user away from the needle axis. Works in combination with AxialConstraint
+			//if (mp_patient->isPenetrated())
+			//{
+			//	// project next best pos onto entry direction vector in space relative to entry point
+			//	m_nextBestProxyGlobalPos = cProject(m_nextBestProxyGlobalPos - mp_patient->m_entryPoint, mp_axialConstraint->m_direction);
+			//
+			//	//add the entry point position back again to place it relative to the haptic origin
+			//	m_nextBestProxyGlobalPos += mp_patient->m_entryPoint;
+			//
+			//	// update proxy to next best position 
+			//	m_proxyGlobalPos = m_nextBestProxyGlobalPos;
+			//}
 
 			// compute force vector applied to device based on proxy position and device position
 			updateForce();

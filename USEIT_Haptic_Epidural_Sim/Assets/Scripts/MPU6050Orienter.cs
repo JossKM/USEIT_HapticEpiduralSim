@@ -130,7 +130,7 @@ public class MPU6050Orienter : MonoBehaviour
 
 				if (transformSlave != null && isRotationActive) 
 				{
-					transformSlave.localRotation =  transform.localRotation * newOrientation;
+					transformSlave.localRotation = newOrientation;
 				}
 			}
 		}
