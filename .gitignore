@@ -36,3 +36,9 @@ sysinfo.txt
 
 # Builds
 *.apk
+USEIT_Haptic_Epidural_Sim/chai3d-3.1.1/modules/Unity/src/plugin/UnityPlugin/x64/Release/mathUtils.obj
+USEIT_Haptic_Epidural_Sim/chai3d-3.1.1/modules/Unity/src/plugin/UnityPlugin/x64/Release/UnityCHAI3DPlugin.obj
+USEIT_Haptic_Epidural_Sim/chai3d-3.1.1/modules/Unity/src/plugin/UnityPlugin/x64/Release/StackSentinel.obj
+USEIT_Haptic_Epidural_Sim/chai3d-3.1.1/modules/Unity/src/plugin/UnityPlugin/x64/Release/HapticLayers.obj
+USEIT_Haptic_Epidural_Sim/chai3d-3.1.1/modules/Unity/src/plugin/UnityPlugin/x64/Release/AlgorithmFingerProxyLineSegment.obj
+USEIT_Haptic_Epidural_Sim/chai3d-3.1.1/modules/Unity/src/plugin/UnityPlugin/x64/Debug/AlgorithmFingerProxyLineSegment.obj

@@ -295,9 +295,12 @@ public class HapticNativePlugin
 	public static extern bool isPatientPenetrated();
 
 	[DllImport("UnityPlugin")]
-	public static extern int getLastLayerPenetrated();
+	public static extern int getLastLayerPenetratedID();
 
-	[DllImport("UnityPlugin")]
+    [DllImport("UnityPlugin")]
+    public static extern int getAllLayersPenetrated(double[] layerArray);
+
+    [DllImport("UnityPlugin")]
 	public static extern void setNeedlePID(double kp, double ki, double kd, double gain);
 
     [DllImport("UnityPlugin")]

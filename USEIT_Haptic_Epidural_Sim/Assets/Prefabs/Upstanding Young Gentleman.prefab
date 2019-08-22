@@ -27465,16 +27465,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4952287168491892}
     m_Modifications:
-    - target: {fileID: 1548534953813955353, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Name
-      value: Haptic objects
-      objectReference: {fileID: 0}
-    - target: {fileID: 1548534953813955353, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 1546184661331811549, guid: 5201b2b5468b60b45863c59e11c9e87a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27530,101 +27520,51 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1549185192399946189, guid: 5201b2b5468b60b45863c59e11c9e87a,
+    - target: {fileID: 1546184661331811549, guid: 5201b2b5468b60b45863c59e11c9e87a,
         type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: m_LocalScale.x
+      value: 35.82323
       objectReference: {fileID: 0}
-    - target: {fileID: 1549063152354961741, guid: 5201b2b5468b60b45863c59e11c9e87a,
+    - target: {fileID: 1546184661331811549, guid: 5201b2b5468b60b45863c59e11c9e87a,
         type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: m_LocalScale.y
+      value: 35.82323
       objectReference: {fileID: 0}
-    - target: {fileID: 1549083483238750491, guid: 5201b2b5468b60b45863c59e11c9e87a,
+    - target: {fileID: 1546184661331811549, guid: 5201b2b5468b60b45863c59e11c9e87a,
         type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1548894465998898341, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1548630963818044665, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1548523804709993573, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1548476011130919583, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: m_LocalScale.z
+      value: 35.82323
       objectReference: {fileID: 0}
     - target: {fileID: 1548984446911350849, guid: 5201b2b5468b60b45863c59e11c9e87a,
         type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: m_TagString
+      value: Bone
       objectReference: {fileID: 0}
     - target: {fileID: 1548918417771376849, guid: 5201b2b5468b60b45863c59e11c9e87a,
         type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: m_TagString
+      value: Bone
       objectReference: {fileID: 0}
     - target: {fileID: 1548810839787066031, guid: 5201b2b5468b60b45863c59e11c9e87a,
         type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: m_TagString
+      value: Bone
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548534953813955353, guid: 5201b2b5468b60b45863c59e11c9e87a,
+        type: 3}
+      propertyPath: m_Name
+      value: Haptic objects
       objectReference: {fileID: 0}
     - target: {fileID: 1548510748611103113, guid: 5201b2b5468b60b45863c59e11c9e87a,
         type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: m_TagString
+      value: Bone
       objectReference: {fileID: 0}
     - target: {fileID: 1548372255204341787, guid: 5201b2b5468b60b45863c59e11c9e87a,
         type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: m_TagString
+      value: Bone
       objectReference: {fileID: 0}
-    - target: {fileID: 1524536218192532539, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d656129ce8cf62c499a166a94ba93e32, type: 2}
-    - target: {fileID: 1557984248499512073, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300134, guid: 7a841cdda4631e943a4f477cb84028b0, type: 3}
-    - target: {fileID: 1525008542383285717, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 313557c56d251ac459dacca113c6d744, type: 2}
-    - target: {fileID: 1524794057051007897, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 313557c56d251ac459dacca113c6d744, type: 2}
-    - target: {fileID: 1524496668181156709, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 313557c56d251ac459dacca113c6d744, type: 2}
-    - target: {fileID: 1526474120833668737, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 313557c56d251ac459dacca113c6d744, type: 2}
-    - target: {fileID: 1526335448971948407, guid: 5201b2b5468b60b45863c59e11c9e87a,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 313557c56d251ac459dacca113c6d744, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5201b2b5468b60b45863c59e11c9e87a, type: 3}
 --- !u!4 &4156737364579248 stripped

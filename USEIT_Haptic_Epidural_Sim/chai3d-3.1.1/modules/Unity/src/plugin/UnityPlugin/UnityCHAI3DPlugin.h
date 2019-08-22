@@ -14,18 +14,18 @@ namespace NeedleSimPlugin
 	// custom AlgorithmFingerProxy meant to reduce oscillations
 	class AlgorithmFingerProxyPID : public cAlgorithmFingerProxy
 	{
-		public:
-			//! Constructor
-			AlgorithmFingerProxyPID();
+	public:
+		//! Constructor
+		AlgorithmFingerProxyPID();
 
-			//! Destructor
-			virtual ~AlgorithmFingerProxyPID() {}
+		//! Destructor
+		virtual ~AlgorithmFingerProxyPID() {}
 
-			virtual cVector3d computeForces(const cVector3d& a_toolPos,
-				const cVector3d& a_toolVel) override;
+		virtual cVector3d computeForces(const cVector3d& a_toolPos,
+			const cVector3d& a_toolVel) override;
 
-			PIDController<cVector3d> m_PID;
-			double m_dt;
+		PIDController<cVector3d> m_PID;
+		double m_dt;
 	};
 
 	class AlgorithmFingerProxyNeedle : public AlgorithmFingerProxyPID
@@ -44,9 +44,6 @@ namespace NeedleSimPlugin
 
 		AxialConstraint* mp_axialConstraint;
 	};
-
-
-
 
 	extern "C"
 	{
@@ -84,7 +81,7 @@ namespace NeedleSimPlugin
 			double computeFrictionForce(const double& displacement);
 
 			// the resting depth of the layer, relative to the entry point of the needle
-			double m_restingDepth; 
+			double m_restingDepth;
 
 			//inline void setProperties(const double& a_stiffness, const double& a_stiffnessExponent, const double& a_penetrationThreshold);
 
@@ -101,15 +98,15 @@ namespace NeedleSimPlugin
 			int m_id = -1;
 
 			//// pre-penetration parameters ///////////
-			
+
 			// scalar from 0 to inf
 			double m_stiffness;
 
 			// behaviour of the force function. e.g. at 1 it is linear. at 2 it is quadratic. at (0, 1) it is logarithmic. at 0 it is constant
-			double m_stiffnessExponent; 
-			
+			double m_stiffnessExponent;
+
 			// maximum force before penetration
-			double m_penetrationThreshold; 
+			double m_penetrationThreshold;
 
 			//// post-penetration parameters ///////////
 			double m_maxFrictionForce; // max friction force once penetrated
@@ -143,10 +140,10 @@ namespace NeedleSimPlugin
 
 			// index of the last layer material that was penetrated. During needle insertion this keeps track of which layers are penetrated and which are not.
 			int m_lastLayerPenetrated; // an index of -1 means no layers are being penetrated
-			
+
 			// number of layers to iterate through
 			int m_numLayersInUse;
-		
+
 			bool m_enabled;
 
 			bool isPenetrated();
@@ -174,16 +171,16 @@ namespace NeedleSimPlugin
 			// to constrain movement to a specific axis at a specific location in worldspace
 			// This Axial constraint represents the penetration/needle shaft axis. The needle resists movement perpendicular to its pointy bit
 			AxialConstraint axialConstraint;
-			
+
 			bool isForceEngaged();
 
 			void computeInteractionForces() override;
-			
+
 			inline cVector3d getHapticPointPosition(size_t index);
 		private:
 			cVector3d m_lastForceApplied;
 		};
-		
+
 
 		/////////////////////////////////////////////////////////////////////////////
 
@@ -197,6 +194,8 @@ namespace NeedleSimPlugin
 		FUNCDLL_API void startHaptics(void);
 		FUNCDLL_API void stopHaptics(void);
 		void updateHaptics(void);
+		FUNCDLL_API void setPaused(bool pause);
+
 
 		FUNCDLL_API void setToolRadius(double a_toolRadius);
 
@@ -210,7 +209,7 @@ namespace NeedleSimPlugin
 
 		// move all objects in the world
 		FUNCDLL_API void translateObjects(double translation[]);
-		
+
 		// set position of workspace
 		FUNCDLL_API void setHapticPosition(double position[]);
 
@@ -218,7 +217,7 @@ namespace NeedleSimPlugin
 		FUNCDLL_API void setHapticRotation(double rotation[]);
 
 		FUNCDLL_API void setGlobalForce(double force[]);
-		
+
 
 
 		////// Patient layer system ///
@@ -226,7 +225,8 @@ namespace NeedleSimPlugin
 		FUNCDLL_API void setHapticEntryPoint(double position[], double direction[]);
 
 		FUNCDLL_API void clearHapticLayersFromPatient();
-		FUNCDLL_API void addHapticLayerToPatient(double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth);
+		//FUNCDLL_API void addHapticLayerToPatient(double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth);
+		FUNCDLL_API void addHapticLayerToPatient();
 
 		FUNCDLL_API void setPatientLayersEnabled(bool a_enabled);
 
@@ -234,17 +234,22 @@ namespace NeedleSimPlugin
 		FUNCDLL_API bool isPatientPenetrated();
 
 		// where in the patient is the needle tip? Returns an ID number
-		FUNCDLL_API int getLastLayerPenetrated();
+		FUNCDLL_API int getLastLayerPenetratedID();
+
+		// get the sequence index of the last layer penetrated -- i.e. if it is the third layer from the entry point its index will be 2
+		FUNCDLL_API int getCurrentLayerDepth();
 
 		//set the number of layers that are present in the needle's path into the patient
 		FUNCDLL_API void setPatientNumLayersToUse(int a_numLayers);
 
 		FUNCDLL_API void setHapticLayerProperties(int depthIndex, int layerID, double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth);
-		
+
 		// set constraint to only allow movement along a specific axis given by a direction vector. passing 0,0,0 will disable the constraint
 		FUNCDLL_API void setNeedleAxialConstraintPID(double position[], double direction[], double maxForce, double kp, double ki, double kd, double gain);
+		FUNCDLL_API void updateAxialConstraint(double position[], double direction[]);
+
 		FUNCDLL_API void setNeedlePID(double kp, double ki, double kd, double gain);
-		
+
 		FUNCDLL_API void resetAxialConstraintPID();
 
 		///////

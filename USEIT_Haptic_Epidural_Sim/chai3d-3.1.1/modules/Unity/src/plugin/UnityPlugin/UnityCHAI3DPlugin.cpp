@@ -52,6 +52,9 @@ namespace NeedleSimPlugin
 		// indicates if the haptic simulation has terminated
 		bool simulationFinished = false;
 
+		// indicates if the haptic simulation is paused
+		bool simulationPaused = false;
+
 		// frequency counter to measure the simulation haptic rate
 		cFrequencyCounter frequencyCounter;
 
@@ -174,7 +177,7 @@ namespace NeedleSimPlugin
 			(*hapticDevice)->close();
 			tool->stop();
 
-
+			clearHapticLayersFromPatient();
 			//--------------------------------------------------------------------------
 			// Memory cleanup
 			//--------------------------------------------------------------------------
@@ -192,7 +195,8 @@ namespace NeedleSimPlugin
 			delete hapticDevice;
 
 #ifdef HAPTIC_DEBUG
-			FreeConsole();
+			PRINTLN("Haptic simulation stopped!")
+				FreeConsole();
 #endif
 		}
 
@@ -208,74 +212,90 @@ namespace NeedleSimPlugin
 			// main haptic simulation loop
 			while (simulationRunning)
 			{
-				/////////////////////////////////////////////////////////////////////
-				// SIMULATION TIME
-				/////////////////////////////////////////////////////////////////////
+				if (!simulationPaused)
+				{
+					/////////////////////////////////////////////////////////////////////
+					// SIMULATION TIME
+					/////////////////////////////////////////////////////////////////////
 
-				// stop the simulation clock
-				toolClock.stop();
+					// stop the simulation clock
+					toolClock.stop();
 
-				// read the time increment in seconds
-				deltaTime = toolClock.getCurrentTimeSeconds();
+					// read the time increment in seconds
+					deltaTime = toolClock.getCurrentTimeSeconds();
 
-				// restart the simulation clock
-				toolClock.reset();
-				toolClock.start();
+					// restart the simulation clock
+					toolClock.reset();
+					toolClock.start();
 
-				// update frequency counter
-				frequencyCounter.signal(1);
+					// update frequency counter
+					frequencyCounter.signal(1);
 
-				/////////////////////////////////////////////////////////////////////
-				// HAPTIC FORCE COMPUTATION
-				/////////////////////////////////////////////////////////////////////
+					/////////////////////////////////////////////////////////////////////
+					// HAPTIC FORCE COMPUTATION
+					/////////////////////////////////////////////////////////////////////
 
-				// compute global reference frames for each object
-				world->computeGlobalPositions(true);
+					// compute global reference frames for each object
+					world->computeGlobalPositions(true);
 
-				// update position and orientation of tool
-				tool->updateFromDevice();
+					// update position and orientation of tool
+					tool->updateFromDevice();
 
-				// compute interaction forces
-				tool->computeInteractionForces();
+					// compute interaction forces
+					tool->computeInteractionForces();
 
-				// send forces to haptic device
-				tool->applyToDevice();
+					// send forces to haptic device
+					tool->applyToDevice();
 
 
 #ifdef HAPTIC_DEBUG
 
 
 
-				// report on when the haptic force feedback is enabled/disabled
-				{
-					bool isEngaged = tool->isForceEngaged();
-					if (isEngaged != lastForceEngagedState)
+					// report on when the haptic force feedback is enabled/disabled
 					{
-						std::cout << "Force feedback engaged?: " << std::to_string(isEngaged) << std::endl;
+						bool isEngaged = tool->isForceEngaged();
+						if (isEngaged != lastForceEngagedState)
+						{
+							std::cout << "Force feedback engaged?: " << std::to_string(isEngaged) << std::endl;
+						}
+						lastForceEngagedState = isEngaged;
 					}
-					lastForceEngagedState = isEngaged;
-				}
 
-				// report on framerate
-				{
-					static double time(0.0);
-					static int num_samples(0);
-					time += deltaTime;
-					num_samples++;
-
-					if (num_samples == 10000) // reports approx. every 10sec
+					// report on framerate
 					{
-						std::cout << "avg framerate: " << 1.0 / (time / num_samples) << std::endl;
-						num_samples = 0;
-						time = 0.0;
+						static double time(0.0);
+						static int num_samples(0);
+						time += deltaTime;
+						num_samples++;
+
+						if (num_samples == 10000) // reports approx. every 10sec
+						{
+							std::cout << "avg framerate: " << 1.0 / (time / num_samples) << std::endl;
+							num_samples = 0;
+							time = 0.0;
+						}
 					}
 				}
-
 #endif HAPTIC_DEBUG
 			}
 
 			// exit haptics thread
 			simulationFinished = true;
+		}
+
+		FUNCDLL_API void setPaused(bool pause)
+		{
+			simulationPaused = pause;
+
+			if (simulationPaused)
+			{
+				PRINTLN("----===========++II([ PAUSED ])II+++============----")
+			}
+			else
+			{
+				PRINTLN("]>==---------------- UNPAUSED ------------------==<[")
+			}
 		}
 
 		bool isSimulationRunning()
@@ -331,8 +351,8 @@ namespace NeedleSimPlugin
 				{
 					try {
 						// convert coordinate space
-						outPosArray[i][0] =			tool->getHapticPoint(i)->getGlobalPosProxy().y();
-						outPosArray[i][1] =			tool->getHapticPoint(i)->getGlobalPosProxy().z();
+						outPosArray[i][0] = tool->getHapticPoint(i)->getGlobalPosProxy().y();
+						outPosArray[i][1] = tool->getHapticPoint(i)->getGlobalPosProxy().z();
 						outPosArray[i][2] = -1.0 * tool->getHapticPoint(i)->getGlobalPosProxy().x();
 					}
 					catch (std::exception e)
@@ -397,12 +417,12 @@ namespace NeedleSimPlugin
 				int vertex = object->newVertex();
 
 				convertXYZToCHAI3D(vertPos[i]);
-				cVector3d vertPosVecotor3 = cVector3d(vertPos[i][0], vertPos[i][1], vertPos[i][2]);
+				cVector3d vertPosVector3 = cVector3d(vertPos[i][0], vertPos[i][1], vertPos[i][2]);
 				convertXYZToCHAI3D(normals[i]);
-				cVector3d vertNormalVecotor3 = cVector3d(normals[i][0], normals[i][1], normals[i][2]);
+				cVector3d vertNormalVector3 = cVector3d(normals[i][0], normals[i][1], normals[i][2]);
 
-				object->m_vertices->setLocalPos(vertex, vertPosVecotor3);
-				object->m_vertices->setNormal(vertex, vertNormalVecotor3);
+				object->m_vertices->setLocalPos(vertex, vertPosVector3);
+				object->m_vertices->setNormal(vertex, vertNormalVector3);
 			}
 
 			// set triangles
@@ -540,13 +560,26 @@ namespace NeedleSimPlugin
 			tool->axialConstraint.m_maxForce = maxForce;
 		}
 
+		void updateAxialConstraint(double position[], double direction[])
+		{
+			convertXYZToCHAI3D(position);
+			convertXYZToCHAI3D(direction);
+
+			cVector3d goalDir = cVector3d(direction);
+			tool->axialConstraint.m_direction = goalDir;
+
+			cVector3d goalPosition = cVector3d(position);
+			goalPosition.projectToPlane(goalDir);
+			tool->axialConstraint.m_controller.setGoal(goalPosition);
+		}
+
 		void setNeedlePID(double kp, double ki, double kd, double gain)
 		{
 			for (int i = 0; i < tool->getNumHapticPoints(); i++)
 			{
-				
+
 				AlgorithmFingerProxyPID* algo = (AlgorithmFingerProxyPID*)(tool->getHapticPoint(i)->m_algorithmFingerProxy);
-				
+
 				if (algo != nullptr)
 				{
 					algo->m_PID.configure(kp, ki, kd, gain);
@@ -558,58 +591,6 @@ namespace NeedleSimPlugin
 		void resetAxialConstraintPID()
 		{
 			tool->axialConstraint.m_controller.reset<cVector3d>();
-		}
-
-		void setHapticEntryPoint(double position[], double direction[])
-		{
-			convertXYZToCHAI3D(position);
-			convertXYZToCHAI3D(direction);
-
-			patient.m_entryPoint = cVector3d(position);
-			patient.m_entryDirection = cVector3d(direction);
-			//PRINTLN("entry point set!")
-		}
-
-		void clearHapticLayersFromPatient()
-		{
-			patient.m_layerMaterials.clear();
-		}
-
-		void addHapticLayerToPatient(double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth)
-		{
-			HapticLayer layer = HapticLayer(a_stiffness, a_stiffnessExponent, a_maxFrictionForce, a_penetrationThreshold, a_resistanceToMovement, a_depth);
-			patient.m_layerMaterials.push_back(layer);
-		}
-
-		void setPatientLayersEnabled(bool a_enabled)
-		{
-			patient.m_enabled = a_enabled;
-		}
-
-		bool isPatientPenetrated()
-		{
-			return patient.isPenetrated();
-		}
-
-		int getLastLayerPenetrated()
-		{
-			return patient.m_layerMaterials[patient.m_lastLayerPenetrated].m_id;
-		}
-
-		void setPatientNumLayersToUse(int a_numLayers)
-		{
-			patient.m_numLayersInUse = a_numLayers;
-		}
-
-		void setHapticLayerProperties(int depthIndex, int layerID, double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth)
-		{
-			patient.m_layerMaterials[depthIndex].m_id = layerID;
-			patient.m_layerMaterials[depthIndex].m_stiffness = a_stiffness;
-			patient.m_layerMaterials[depthIndex].m_stiffnessExponent = a_stiffnessExponent;
-			patient.m_layerMaterials[depthIndex].m_maxFrictionForce = a_maxFrictionForce;
-			patient.m_layerMaterials[depthIndex].m_penetrationThreshold = a_penetrationThreshold;
-			patient.m_layerMaterials[depthIndex].m_malleability = a_resistanceToMovement;
-			patient.m_layerMaterials[depthIndex].m_restingDepth = a_depth;
 		}
 
 		//--------------------------------------------------------------------------
@@ -901,19 +882,19 @@ namespace NeedleSimPlugin
 		for (unsigned int i = 0; i < a_numHapticPoints; i++)
 		{
 			cHapticPoint* newPoint = new cHapticPoint(this);
-			
+
 
 
 
 			//////////////////////
 			// replace fingerproxy algorithm with custom version
 			delete newPoint->m_algorithmFingerProxy;
-			
+
 			// create and initialize replacement algorithm
-			//auto algo = new AlgorithmFingerProxyPID();
-			auto algo = new AlgorithmFingerProxyNeedle(&patient, &axialConstraint);
+			auto algo = new AlgorithmFingerProxyPID();
+			//auto algo = new AlgorithmFingerProxyNeedle(&patient, &axialConstraint);
 			algo->initialize(a_parentWorld, getDeviceGlobalPos());
-			
+
 			newPoint->m_algorithmFingerProxy = algo;
 			//////////////////////
 
@@ -1212,7 +1193,96 @@ namespace NeedleSimPlugin
 
 	void HapticLayer::onExitLayer()
 	{
+
 	}
+
+
+
+
+
+
+
+
+
+	void setHapticEntryPoint(double position[], double direction[])
+	{
+		convertXYZToCHAI3D(position);
+		convertXYZToCHAI3D(direction);
+
+		patient.m_entryPoint = cVector3d(position);
+		patient.m_entryDirection = cVector3d(direction);
+		//PRINTLN("entry point set!")
+	}
+
+	void clearHapticLayersFromPatient()
+	{
+		patient.m_layerMaterials.clear();
+	}
+
+	//void addHapticLayerToPatient(double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth)
+	//{
+	//	HapticLayer layer = HapticLayer(a_stiffness, a_stiffnessExponent, a_maxFrictionForce, a_penetrationThreshold, a_resistanceToMovement, a_depth);
+	//	patient.m_layerMaterials.push_back(layer);
+	//}
+
+	void addHapticLayerToPatient()
+	{
+		patient.m_layerMaterials.push_back(HapticLayer());
+	}
+
+	void setPatientLayersEnabled(bool a_enabled)
+	{
+		patient.m_enabled = a_enabled;
+	}
+
+	bool isPatientPenetrated()
+	{
+		return patient.isPenetrated();
+	}
+
+	int getLastLayerPenetratedID()
+	{
+		if (patient.isPenetrated())
+		{
+			return patient.m_layerMaterials[patient.m_lastLayerPenetrated].m_id;
+		}
+		else
+		{
+			return -1;
+		}
+	}
+
+	int getCurrentLayerDepth()
+	{
+		return patient.m_lastLayerPenetrated;
+	}
+
+	void setPatientNumLayersToUse(int a_numLayers)
+	{
+		patient.m_numLayersInUse = a_numLayers;
+	}
+
+	void setHapticLayerProperties(int depthIndex, int layerID, double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth)
+	{
+		patient.m_layerMaterials[depthIndex].m_id = layerID;
+		patient.m_layerMaterials[depthIndex].m_stiffness = a_stiffness;
+		patient.m_layerMaterials[depthIndex].m_stiffnessExponent = a_stiffnessExponent;
+		patient.m_layerMaterials[depthIndex].m_maxFrictionForce = a_maxFrictionForce;
+		patient.m_layerMaterials[depthIndex].m_penetrationThreshold = a_penetrationThreshold;
+		patient.m_layerMaterials[depthIndex].m_malleability = a_resistanceToMovement;
+		patient.m_layerMaterials[depthIndex].m_restingDepth = a_depth;
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------
@@ -1243,10 +1313,10 @@ namespace NeedleSimPlugin
 			updateForce();
 
 			// if no force, reset PID state
-			if (m_lastGlobalForce.lengthsq() == 0.0)
-			{
-				m_PID.reset<cVector3d>();
-			}
+			//if (m_lastGlobalForce.lengthsq() == 0.0)
+			//{
+			//	m_PID.reset<cVector3d>();
+			//}
 
 			// calculate PID output
 			m_PID.setGoal(m_nextBestProxyGlobalPos);
@@ -1276,7 +1346,7 @@ namespace NeedleSimPlugin
 	////////////////////////////////////////////////
 
 
-	AlgorithmFingerProxyNeedle::AlgorithmFingerProxyNeedle(HapticLayerContainer * patient, AxialConstraint* axialConstraint): mp_patient(patient), mp_axialConstraint(axialConstraint)
+	AlgorithmFingerProxyNeedle::AlgorithmFingerProxyNeedle(HapticLayerContainer * patient, AxialConstraint* axialConstraint) : mp_patient(patient), mp_axialConstraint(axialConstraint)
 	{
 		// set m_collisionSettings.m_adjustObjectMotion to true if the patient ever moves
 		m_collisionSettings.m_adjustObjectMotion = false;
@@ -1312,10 +1382,10 @@ namespace NeedleSimPlugin
 			updateForce();
 
 			// if no force, reset PID state
-			if (m_lastGlobalForce.lengthsq() == 0.0)
-			{
-				m_PID.reset<cVector3d>();
-			}
+			//if (m_lastGlobalForce.lengthsq() == 0.0)
+			//{
+			//	m_PID.reset<cVector3d>();
+			//}
 
 			// calculate PID output
 			m_PID.setGoal(m_nextBestProxyGlobalPos);
@@ -1336,7 +1406,6 @@ namespace NeedleSimPlugin
 			return (cVector3d(0.0, 0.0, 0.0));
 		}
 	}
-
 	//------------------------------------------------------------------------------
 } // namespace NeedleSimPlugin
 //------------------------------------------------------------------------------

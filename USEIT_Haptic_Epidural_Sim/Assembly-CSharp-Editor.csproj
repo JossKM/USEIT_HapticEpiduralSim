@@ -105,13 +105,6 @@
     <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\Editor\ListViewEditor.cs" />
     <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\Editor\SliderSnapEditor.cs" />
     <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\Editor\ToggleEventEditor.cs" />
-    <Compile Include="Assets\Scripts\Editor\ConfigManagerEditor.cs" />
-    <Compile Include="Assets\Scripts\Editor\InvertAxisPropertyDrawer.cs" />
-    <Compile Include="Assets\Scripts\Editor\NonEditableDrawer.cs" />
-    <Compile Include="Assets\Scripts\Editor\VRPN_AnalogEditor.cs" />
-    <Compile Include="Assets\Scripts\Editor\VRPN_ClientEditor.cs" />
-    <Compile Include="Assets\Scripts\Editor\VRPN_ManagerEditor.cs" />
-    <Compile Include="Assets\Scripts\Editor\VRPN_TrackerEditor.cs" />
     <None Include="Assets\Editor\Vuforia\CylinderTargetTextures\helloDatabase\authoringinfo.xml" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>D:/Users/Joss/USEIT-EpiduralSim/USEIT_Haptic_Epidural_Sim/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>

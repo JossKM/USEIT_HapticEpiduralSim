@@ -1,0 +1,33 @@
+diff a/USEIT_Haptic_Epidural_Sim/chai3d-3.1.1/modules/Unity/src/plugin/UnityPlugin/UnityCHAI3DPlugin.cpp b/USEIT_Haptic_Epidural_Sim/chai3d-3.1.1/modules/Unity/src/plugin/UnityPlugin/UnityCHAI3DPlugin.cpp	(rejected hunks)
+@@ -321,21 +321,22 @@
+ 				for (unsigned int i = 0; i < sz; i++)
+ 				{
+ 					try {
+-					outPosArray[i][0] = tool->getHapticPoint(i)->getGlobalPosGoal().y();
+-					outPosArray[i][1] = tool->getHapticPoint(i)->getGlobalPosGoal().z();
+-					outPosArray[i][2] = -1.0 * tool->getHapticPoint(i)->getGlobalPosGoal().x();
++						// convert coordinate space
++						outPosArray[i][0] = tool->getHapticPoint(i)->getGlobalPosProxy().y();
++						outPosArray[i][1] = tool->getHapticPoint(i)->getGlobalPosProxy().z();
++						outPosArray[i][2] = -1.0 * tool->getHapticPoint(i)->getGlobalPosProxy().x();
+ 					}
+-					catch (exception e)
++					catch (std::exception e)
+ 					{
+-						PRINTWAIT("Something went wrong in GetProxyPositions?", 10000)
++						PRINTLNWAIT("Something went wrong in GetProxyPositions?", 10000)
+ 					}
+ 				}
+ 
+ 
+-//#ifdef HAPTIC_DEBUG
+-//				PRINTLN("Dev pos: " << tool->getDeviceGlobalPos() << "/ Prox pos: " << tool->m_hapticTip->getGlobalPosProxy());
+-//				PRINTLN("Prox 0 at pos: " << cVector3d(outPosArray[0][0], outPosArray[0][1], outPosArray[0][2]));
+-//#endif
++				//#ifdef HAPTIC_DEBUG
++				//				PRINTLN("Dev pos: " << tool->getDeviceGlobalPos() << "/ Prox pos: " << tool->m_hapticTip->getGlobalPosProxy());
++				//				PRINTLN("Prox 0 at pos: " << cVector3d(outPosArray[0][0], outPosArray[0][1], outPosArray[0][2]));
++				//#endif
+ 			}
+ 			else
+ 			{
