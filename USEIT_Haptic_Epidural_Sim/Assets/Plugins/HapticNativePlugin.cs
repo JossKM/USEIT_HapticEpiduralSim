@@ -276,8 +276,15 @@ public class HapticNativePlugin
     [DllImport("UnityPlugin")]
     public static extern void clearHapticLayersFromPatient();
 
-    [DllImport("UnityPlugin")]
-    public static extern void addHapticLayerToPatient(double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth);
+    //[DllImport("UnityPlugin")]
+    //public static extern void addHapticLayerToPatient(double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement);
+
+
+    //[DllImport("UnityPlugin")]
+    //public static extern void addHapticLayerToPatient();
+    
+    //[DllImport("UnityPlugin")]
+    //public static extern void setHapticLayerDepth(int a_layerDepth, int a_layerID, double a_depth);
 
     [DllImport("UnityPlugin")]
 	public static extern void setHapticLayerProperties(int a_layerDepth, int a_layerID, double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth);
@@ -298,7 +305,7 @@ public class HapticNativePlugin
 	public static extern int getLastLayerPenetratedID();
 
     [DllImport("UnityPlugin")]
-    public static extern int getAllLayersPenetrated(double[] layerArray);
+    public static extern int getCurrentLayerDepth();
 
     [DllImport("UnityPlugin")]
 	public static extern void setNeedlePID(double kp, double ki, double kd, double gain);

@@ -9,17 +9,17 @@ public class FluidResistance : MonoBehaviour
 
     // Arduino communication for fluid resistance
     [SerializeField]
-    ArduinoInterface arduino;
+    ArduinoFluidResistance arduino;
 
-    [SerializeField]
-    string eventNameToListenFor = "New Layer Penetrated";
-
-    private void Start()
-    {
-        EventManager.StartListening(eventNameToListenFor, OnNewLayerPenetrated);
-    }
+    //[SerializeField]
+    //string eventNameToListenFor = "New Layer Penetrated";
+    //
+    //private void Start()
+    //{
+    //    EventManager.StartListening(eventNameToListenFor, OnNewLayerPenetrated);
+    //}
     
-    void OnNewLayerPenetrated()
+    public void OnLayerChange()
     {
         if (HapticNativePlugin.isPatientPenetrated())
         {

@@ -107,6 +107,7 @@
     <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\ListView.cs" />
     <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\SliderSnap.cs" />
     <Compile Include="Assets\Arduino Code\ARDUnity\Scripts\Utility\ToggleEvent.cs" />
+    <Compile Include="Assets\Hax\LeetHax.cs" />
     <Compile Include="Assets\ObjectivesSystem\CollisionEvent.cs" />
     <Compile Include="Assets\ObjectivesSystem\CollisionObjective.cs" />
     <Compile Include="Assets\ObjectivesSystem\EventManager.cs" />
@@ -117,7 +118,7 @@
     <Compile Include="Assets\ObjectivesSystem\ObjectiveManager.cs" />
     <Compile Include="Assets\ObjectivesSystem\ObjectiveUI.cs" />
     <Compile Include="Assets\Scripts\Arduino\ArduinoConnection.cs" />
-    <Compile Include="Assets\Scripts\Arduino\ArduinoInterface.cs" />
+    <Compile Include="Assets\Scripts\Arduino\ArduinoFluidResistance.cs" />
     <Compile Include="Assets\Scripts\Arduino\FluidResistance.cs" />
     <Compile Include="Assets\Scripts\Arduino\MPU6050Orienter.cs" />
     <Compile Include="Assets\Scripts\Arduino\StepperMotorInterface.cs" />

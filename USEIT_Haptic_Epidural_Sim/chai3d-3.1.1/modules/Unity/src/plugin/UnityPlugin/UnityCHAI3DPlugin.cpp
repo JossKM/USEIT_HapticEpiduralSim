@@ -1007,7 +1007,7 @@ namespace NeedleSimPlugin
 	HapticLayerContainer::HapticLayerContainer()
 	{
 		m_lastLayerPenetrated = -1;
-		initialize(10);
+		initialize(1);
 	}
 
 	HapticLayerContainer::~HapticLayerContainer()
@@ -1136,15 +1136,16 @@ namespace NeedleSimPlugin
 	{
 	}
 
-	HapticLayer::HapticLayer()
+	HapticLayer::HapticLayer():
+	m_stiffnessExponent(1.0),
+	m_maxFrictionForce(0.1),
+	m_penetrationThreshold(1.0),
+	m_malleability(100.0),
+	m_restingDepth(0.0),
+	m_displacementPoint(0.0)
 	{
-		m_stiffnessExponent = 1.0;
-		m_maxFrictionForce = 0.1;
-		m_penetrationThreshold = 1.0;
-		m_displacementPoint = 0.0;
-		m_restingDepth = 0.0;
-		m_malleability = 100.0;
 	}
+
 	double HapticLayer::computeTensionForce(const double& displacement)
 	{
 		double outputForce = 0.0;
@@ -1219,9 +1220,9 @@ namespace NeedleSimPlugin
 		patient.m_layerMaterials.clear();
 	}
 
-	//void addHapticLayerToPatient(double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth)
+	//void addHapticLayerToPatient(double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement)
 	//{
-	//	HapticLayer layer = HapticLayer(a_stiffness, a_stiffnessExponent, a_maxFrictionForce, a_penetrationThreshold, a_resistanceToMovement, a_depth);
+	//	HapticLayer layer = HapticLayer(a_stiffness, a_stiffnessExponent, a_maxFrictionForce, a_penetrationThreshold, a_resistanceToMovement, 0.0);
 	//	patient.m_layerMaterials.push_back(layer);
 	//}
 
@@ -1260,6 +1261,10 @@ namespace NeedleSimPlugin
 	void setPatientNumLayersToUse(int a_numLayers)
 	{
 		patient.m_numLayersInUse = a_numLayers;
+		while (a_numLayers > patient.m_layerMaterials.size())
+		{
+			addHapticLayerToPatient();
+		}
 	}
 
 	void setHapticLayerProperties(int depthIndex, int layerID, double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth)

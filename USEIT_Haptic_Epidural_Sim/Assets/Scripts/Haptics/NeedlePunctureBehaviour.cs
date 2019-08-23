@@ -34,10 +34,8 @@ public class NeedlePunctureBehaviour : MonoBehaviour
     GameObject needlePenetrationPointPrefab;
 
     List<GameObject> needlePenetrationPoints = new List<GameObject>();
-
-
-
-    //public bool isPoking = false;
+    
+    private LinkedList<RaycastHit> sortedHits;
 
 
     [Header("PID properties")]
@@ -85,7 +83,7 @@ public class NeedlePunctureBehaviour : MonoBehaviour
         RaycastHit[] hits = Physics.RaycastAll(needleRay, distance, needleLayerMask);
 
         //ensure only haptic objects are evaluated, and sort them by distance
-        LinkedList<RaycastHit> sortedHits = SortAndFilterPenetrations(hits);
+        sortedHits = SortAndFilterPenetrations(hits);
         int numLayers = sortedHits.Count;
 
         // Tell plugin how many layers were encountered
@@ -99,17 +97,17 @@ public class NeedlePunctureBehaviour : MonoBehaviour
         //    constraint.SetEnabled(false);
         //}
 
-        if (hits.Length > 0)
+        if (numLayers > 0)
         {
             // For each layer in order of raycast
             ////////////////////////////
-            for (int layerIdx = 0; layerIdx < numLayers; layerIdx++)
+            for (int layerDepthIdx = 0; layerDepthIdx < numLayers; layerDepthIdx++)
             {
                 RaycastHit hit = iterator.Value;
 
                 float layerDepth;
 
-                if (layerIdx == 0) // for the first collision
+                if (layerDepthIdx == 0) // for the first collision
                 {
                     layerDepth = 0.0f;
 
@@ -136,7 +134,7 @@ public class NeedlePunctureBehaviour : MonoBehaviour
                 PenetrableMaterial material = hit.collider.gameObject.GetComponent<PenetrableMaterial>();
 
                 HapticNativePlugin.setHapticLayerProperties(
-                   layerIdx,
+                   layerDepthIdx, // depth order
                    material.GetID(),
                    material.m_stiffness,
                    material.m_stiffnessExponent,
@@ -155,7 +153,7 @@ public class NeedlePunctureBehaviour : MonoBehaviour
                     }
                     else
                     {
-                        needlePenetrationPoints[layerIdx].transform.SetPositionAndRotation(hit.point, Quaternion.LookRotation(hit.normal));
+                        needlePenetrationPoints[layerDepthIdx].transform.SetPositionAndRotation(hit.point, Quaternion.LookRotation(hit.normal));
                     }
                     //
                     //

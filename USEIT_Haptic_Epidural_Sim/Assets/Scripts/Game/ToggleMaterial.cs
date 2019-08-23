@@ -11,10 +11,10 @@ public class ToggleMaterial : MonoBehaviour
     [SerializeField]
     Material defaultMaterial;
 
-    [SerializeField]
-    string useAlternateEventName = "Penetrated Skin";
-    [SerializeField]
-    string useOriginalEventName = "Left Skin";
+    //[SerializeField]
+    //string useAlternateEventName = "Penetrated Skin";
+    //[SerializeField]
+    //string useOriginalEventName = "Left Skin";
 
     [SerializeField]
     Renderer renderer;
@@ -22,18 +22,18 @@ public class ToggleMaterial : MonoBehaviour
     [SerializeField]
     bool useAlternate = false;
 
-    private void OnEnable()
-    {
-        EventManager.StartListening(useAlternateEventName, UseAlternateMaterial);
-        EventManager.StartListening(useOriginalEventName, UseDefaultMaterial);
-        UseAlternateMaterial(useAlternate);
-    }
-
-    private void OnDisable()
-    {
-        EventManager.StopListening(useAlternateEventName, UseAlternateMaterial);
-        EventManager.StopListening(useOriginalEventName, UseDefaultMaterial);
-    }
+    //private void OnEnable()
+    //{
+    //    EventManager.StartListening(useAlternateEventName, UseAlternateMaterial);
+    //    EventManager.StartListening(useOriginalEventName, UseDefaultMaterial);
+    //    UseAlternateMaterial(useAlternate);
+    //}
+    //
+    //private void OnDisable()
+    //{
+    //    EventManager.StopListening(useAlternateEventName, UseAlternateMaterial);
+    //    EventManager.StopListening(useOriginalEventName, UseDefaultMaterial);
+    //}
 
         public void UseAlternateMaterial(bool useAlt)
     {

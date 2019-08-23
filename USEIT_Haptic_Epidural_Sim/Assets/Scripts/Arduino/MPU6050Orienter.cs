@@ -26,6 +26,9 @@ public class MPU6050Orienter : MonoBehaviour
     string lastMessage;
 
     [SerializeField]
+    Transform transformSlave;
+
+    [SerializeField]
     UnityEvent OnOrientationUpdate;
 
     public void Calibrate()
@@ -63,14 +66,14 @@ public class MPU6050Orienter : MonoBehaviour
             if (lastMessage.StartsWith(orientationKeyString))
             { //Debug.Log("updating orientation");
                 // apply calibration
-                transform.localRotation = calibrationQuat * ParseYPR(lastMessage);
-                transform.forward = transform.localRotation * Vector3.forward;
+                transformSlave.localRotation = calibrationQuat * ParseYPR(lastMessage);
+                transformSlave.forward = transformSlave.localRotation * Vector3.forward;
                 OnOrientationUpdate.Invoke();
             }
         }
     }
 
-    void StopUpdating()
+    public void StopUpdating()
     {
         if (isRunning)
         {
@@ -79,7 +82,7 @@ public class MPU6050Orienter : MonoBehaviour
         }
     }
 
-    void StartUpdating()
+    public void StartUpdating()
     {
         if (!isRunning)
         {

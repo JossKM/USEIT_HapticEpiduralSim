@@ -4,7 +4,7 @@ using System.Collections;
 using System.IO.Ports;
 using System.IO;
 
-public class ArduinoInterface : MonoBehaviour
+public class ArduinoFluidResistance : MonoBehaviour
 {
     const byte COMMAND_NULL = 0;
     const byte COMMAND_START = 1;

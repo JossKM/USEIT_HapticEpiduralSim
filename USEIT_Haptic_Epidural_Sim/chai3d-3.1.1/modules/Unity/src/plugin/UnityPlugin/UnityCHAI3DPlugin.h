@@ -119,6 +119,7 @@ namespace NeedleSimPlugin
 
 		// This class represents, haptically, an object with 1 or more penetrable layers
 		// holds a list of resistive layers in sequence and computes output forces
+		// layer forces are calculated in 1 dimension--along the entry axis
 		class HapticLayerContainer
 		{
 		public:
@@ -131,7 +132,7 @@ namespace NeedleSimPlugin
 		public:
 			inline cVector3d computeForces(cVector3d& devicePosition, double forceScalar = 1.0);
 
-			// holds the material properties and states
+			// holds the material properties and states in order of occurrence i.e. 0 is the first layer a needle will encounter, 1 is the second
 			std::vector<HapticLayer> m_layerMaterials;
 
 			// set from Unity
@@ -225,7 +226,11 @@ namespace NeedleSimPlugin
 		FUNCDLL_API void setHapticEntryPoint(double position[], double direction[]);
 
 		FUNCDLL_API void clearHapticLayersFromPatient();
-		//FUNCDLL_API void addHapticLayerToPatient(double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth);
+
+		// adds layer and sets properties
+		//FUNCDLL_API void addHapticLayerToPatient(double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement);
+		
+		// adds a layer. properties must then be set
 		FUNCDLL_API void addHapticLayerToPatient();
 
 		FUNCDLL_API void setPatientLayersEnabled(bool a_enabled);
@@ -239,9 +244,10 @@ namespace NeedleSimPlugin
 		// get the sequence index of the last layer penetrated -- i.e. if it is the third layer from the entry point its index will be 2
 		FUNCDLL_API int getCurrentLayerDepth();
 
-		//set the number of layers that are present in the needle's path into the patient
+		//set the number of layers that are present in the needle's path into the patient. Will add more if necessary
 		FUNCDLL_API void setPatientNumLayersToUse(int a_numLayers);
-
+		
+		// update a layer's depth and properties
 		FUNCDLL_API void setHapticLayerProperties(int depthIndex, int layerID, double a_stiffness, double a_stiffnessExponent, double a_maxFrictionForce, double a_penetrationThreshold, double a_resistanceToMovement, double a_depth);
 
 		// set constraint to only allow movement along a specific axis given by a direction vector. passing 0,0,0 will disable the constraint

@@ -12,7 +12,9 @@ public class NeedleFingerProxyDivergenceCompensator : MonoBehaviour
     float maxDist = 0.01f;
     [SerializeField]
     float minVal = 0.02f;
-    
+    [SerializeField]
+    float maxVal = 0.8f;
+
     // Update is called once per frame
     void Update()
     {
@@ -20,7 +22,7 @@ public class NeedleFingerProxyDivergenceCompensator : MonoBehaviour
         {
         float dist = Vector3.Distance(HapticNativePlugin.GetDevicePosition(), HapticNativePlugin.GetProxyPosition());
             float interpVal = Mathf.InverseLerp(maxDist, 0.0f, dist);
-            constraint.orientationWeight = Mathf.Max(interpVal, minVal);
+            constraint.orientationWeight = Mathf.Clamp(interpVal, minVal, maxVal);
         }
     }
 }

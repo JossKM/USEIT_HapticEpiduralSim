@@ -43,7 +43,7 @@ public class PenetrableMaterial : MonoBehaviour {
         s_IDCounter++;
     }
     
-	public int GetID()
+    public int GetID()
 	{
 		return m_uniqueID;
 	}
