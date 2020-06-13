@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+    <Tracking>
+        <CylinderTarget name="PolygonCylinder" sideLength="0.086000"/>
+        <ImageTarget name="ar_marker" size="0.088600 0.088600"/>
+        <ImageTarget name="vuforia_stones" size="0.270000 0.189000"/>
+        <ImageTarget name="MergeCube_Small.Left" size="0.035100 0.035179"/>
+        <ImageTarget name="MergeCube_Small.Bottom" size="0.035100 0.034944"/>
+        <ImageTarget name="MergeCube_Small.Top" size="0.035100 0.035100"/>
+        <ImageTarget name="MergeCube_Small.Back" size="0.035100 0.035100"/>
+        <ImageTarget name="MergeCube_Small.Right" size="0.035100 0.035100"/>
+        <ImageTarget name="MergeCube_Small.Front" size="0.035100 0.035179"/>
+        <MultiTarget name="MergeCube_Small">
+            <Part name="MergeCube_Small.Left" translation="-0.017550000920891762 0 0" rotation="AD: 0 1 0 -90"/>
+            <Part name="MergeCube_Small.Right" translation="0.017550000920891762 0 0" rotation="AD: 0 1 0 90"/>
+            <Part name="MergeCube_Small.Front" translation="0 0 0.017550000920891762" rotation="AD: 1 0 0 0"/>
+            <Part name="MergeCube_Small.Back" translation="0 0 -0.017550000920891762" rotation="AD: 0 1 0 180"/>
+            <Part name="MergeCube_Small.Top" translation="0 0.017550000920891762 0" rotation="AD: 1 0 0 -90"/>
+            <Part name="MergeCube_Small.Bottom" translation="0 -0.017550000920891762 0" rotation="AD: 1 0 0 90"/>
+        </MultiTarget>
+    </Tracking>
+</QCARConfig>

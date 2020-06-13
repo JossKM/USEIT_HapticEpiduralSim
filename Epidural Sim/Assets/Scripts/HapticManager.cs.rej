@@ -1,0 +1,25 @@
+diff a/USEIT_Haptic_Epidural_Sim/Assets/Scripts/HapticManager.cs b/USEIT_Haptic_Epidural_Sim/Assets/Scripts/HapticManager.cs	(rejected hunks)
+@@ -55,7 +65,10 @@
+ 
+     private void Start()
+     {
+-        HapticNativePlugin.setToolRadius(toolRadius);
++        if (isHapticAvail)
++        {
++            HapticNativePlugin.setToolRadius(toolRadius);
++        }
+     }
+ 
+     private void OnDestroy()
+@@ -66,10 +79,8 @@
+ 
+     private void Update()
+     {
+-        if (isHapticAvail)
++        if (visualizeHapticPoints)
+         {
+-            //transform.localPosition = HapticNativePlugin.GetProxyPosition();
+-
+             if (devicePositionGameObject != null)
+             {
+                 devicePositionGameObject.transform.localPosition = HapticNativePlugin.GetDevicePosition();

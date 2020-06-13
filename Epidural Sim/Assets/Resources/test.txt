@@ -1,0 +1,6 @@
+TEST
+Attempt # 0: failure, , Duration: 1.794659, ended in: Interspinous Ligament
+TEST
+Attempt # 0: failure, , Duration: 1.794659, ended in: Interspinous Ligament
+Attempt # 1: failure, , Duration: 10.32825, ended in: Muscle
+Attempt # 2: success, Duration: 7.946686, ended in: Ligamentum Flavum
